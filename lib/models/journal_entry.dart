@@ -22,6 +22,9 @@ class JournalEntry extends HiveObject {
   @HiveField(5)
   bool isFavorite;
 
+  @HiveField(6)
+  DateTime? lastEdited;
+
   JournalEntry({
     required this.title,
     required this.content,
@@ -29,5 +32,6 @@ class JournalEntry extends HiveObject {
     required this.imageUrl,
     this.mood = 'Calm',
     this.isFavorite = false,
+    this.lastEdited,
   });
 }

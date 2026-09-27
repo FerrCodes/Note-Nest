@@ -41,13 +41,13 @@
   "deleteAllJournals": "Delete All Journals",
   "deleteAllJournalsDesc": "Permanently delete all journal data",
   "about": "About",
-  "aboutDesc": "A minimalist journal app to capture daily moments, self-reflection, and track your mood. Built with Flutter and Hive.",
-  "copyright": "© 2026 - Made with ❤️",
+  "aboutDesc": "A minimalist journal app to capture daily moments, self-reflection, and track your mood.",
+  "copyright": "This application is currently under development; please report any bugs immediately.",
   "aboutApp": "About App",
-  "version": "Version 1.0.0",
+  "version": "v1.0.0",
   "sendFeedback": "Send Feedback",
   "feedbackDesc": "Suggestions or bug reports",
-  "madeWith": "Made with ❤️\nNoteNest v1.0.0",
+  "madeWith": "© 2026 . All rights reserved.",
   "stats": "Statistics",
   "streak": "Streak",
   "days": "Days",
@@ -82,5 +82,71 @@
         "type": "int"
       }
     }
-  }
+  },
+    "readingTime": "{count} min read",
+  "@readingTime": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "wordCount": "{count} words",
+  "@wordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "editedTime": "Edited {time}",
+  "@editedTime": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "justNow": "just now",
+  "minutesAgo": "{count} minutes ago",
+  "@minutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hoursAgo": "{count} hours ago",
+  "@hoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "daysAgo": "{count} days ago",
+  "@daysAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "monthsAgo": "{count} months ago",
+  "@monthsAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "yearsAgo": "{count} years ago",
+  "@yearsAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "edit": "Edit"
 }

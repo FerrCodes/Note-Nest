@@ -103,7 +103,9 @@ class _WriteScreenState extends State<WriteScreen> {
               }
 
               final box = Hive.box<JournalEntry>('journalBox');
-              final today = DateFormat('MMM d, yyyy').format(DateTime.now());
+              final today = DateFormat(
+                'MMM d, yyyy HH:mm',
+              ).format(DateTime.now());
 
               if (isEditing) {
                 widget.entry!.title = _titleController.text.isEmpty
@@ -112,6 +114,7 @@ class _WriteScreenState extends State<WriteScreen> {
                 widget.entry!.content = _contentController.text;
                 widget.entry!.mood = _selectedMood;
                 widget.entry!.imageUrl = _selectedImage;
+                widget.entry!.lastEdited = DateTime.now();
                 await widget.entry!.save();
               } else {
                 final newEntry = JournalEntry(
@@ -122,6 +125,7 @@ class _WriteScreenState extends State<WriteScreen> {
                   date: today,
                   mood: _selectedMood,
                   imageUrl: _selectedImage,
+                  lastEdited: DateTime.now(),
                 );
                 await box.add(newEntry);
               }
@@ -143,177 +147,184 @@ class _WriteScreenState extends State<WriteScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 8),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 8),
 
-            // === PILIHAN GAMBAR ===
-            Text(
-              AppLocalizations.of(context)!.selectImage,
-              style: TextStyle(
-                fontSize: 14,
-                color: textSecondary,
-                fontWeight: FontWeight.w500,
+              // === PILIHAN GAMBAR ===
+              Text(
+                AppLocalizations.of(context)!.selectImage,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: textSecondary,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-            const SizedBox(height: 12),
-            SizedBox(
-              height: 80,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: PresetImages.images.length,
-                separatorBuilder: (_, _) => const SizedBox(width: 10),
-                itemBuilder: (context, index) {
-                  final img = PresetImages.images[index];
-                  final isSelected = _selectedImage == img['url'];
+              const SizedBox(height: 12),
+              SizedBox(
+                height: 80,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: PresetImages.images.length,
+                  separatorBuilder: (_, _) => const SizedBox(width: 10),
+                  itemBuilder: (context, index) {
+                    final img = PresetImages.images[index];
+                    final isSelected = _selectedImage == img['url'];
+                    return GestureDetector(
+                      onTap: () {
+                        HapticFeedback.selectionClick();
+                        setState(() {
+                          _selectedImage = img['url']!;
+                        });
+                      },
+                      child: Container(
+                        width: 80,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: isSelected
+                                ? textPrimary
+                                : Colors.transparent,
+                            width: 3,
+                          ),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(13),
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              Image.network(
+                                img['url']!,
+                                fit: BoxFit.cover,
+                                loadingBuilder:
+                                    (context, child, loadingProgress) {
+                                      if (loadingProgress == null) return child;
+                                      return Container(color: cardColor);
+                                    },
+                              ),
+                              if (isSelected)
+                                Container(
+                                  color: Colors.black.withValues(alpha: 0.3),
+                                  child: const Icon(
+                                    Icons.check_circle,
+                                    color: Colors.white,
+                                    size: 24,
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              // === MOOD SELECTOR ===
+              Text(
+                AppLocalizations.of(context)!.howFeeling,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: textSecondary,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: _moods.map((mood) {
+                  final isSelected = _selectedMood == mood['label'];
                   return GestureDetector(
                     onTap: () {
                       HapticFeedback.selectionClick();
                       setState(() {
-                        _selectedImage = img['url']!;
+                        _selectedMood = mood['label'];
                       });
                     },
-                    child: Container(
-                      width: 80,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: isSelected ? textPrimary : Colors.transparent,
-                          width: 3,
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: isSelected ? textPrimary : cardColor,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            mood['icon'],
+                            color: isSelected ? bgColor : textPrimary,
+                            size: 22,
+                          ),
                         ),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(13),
-                        child: Stack(
-                          fit: StackFit.expand,
-                          children: [
-                            Image.network(
-                              img['url']!,
-                              fit: BoxFit.cover,
-                              loadingBuilder:
-                                  (context, child, loadingProgress) {
-                                    if (loadingProgress == null) return child;
-                                    return Container(color: cardColor);
-                                  },
-                            ),
-                            if (isSelected)
-                              Container(
-                                color: Colors.black.withValues(alpha: 0.3),
-                                child: const Icon(
-                                  Icons.check_circle,
-                                  color: Colors.white,
-                                  size: 24,
-                                ),
-                              ),
-                          ],
+                        const SizedBox(height: 6),
+                        Text(
+                          _getLocalizedMood(context, mood['label']),
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: isSelected ? textPrimary : textSecondary,
+                            fontWeight: isSelected
+                                ? FontWeight.w600
+                                : FontWeight.normal,
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   );
-                },
+                }).toList(),
               ),
-            ),
-            const SizedBox(height: 24),
+              const SizedBox(height: 24),
 
-            // === MOOD SELECTOR ===
-            Text(
-              AppLocalizations.of(context)!.howFeeling,
-              style: TextStyle(
-                fontSize: 14,
-                color: textSecondary,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: _moods.map((mood) {
-                final isSelected = _selectedMood == mood['label'];
-                return GestureDetector(
-                  onTap: () {
-                    HapticFeedback.selectionClick();
-                    setState(() {
-                      _selectedMood = mood['label'];
-                    });
-                  },
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: isSelected ? textPrimary : cardColor,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          mood['icon'],
-                          color: isSelected ? bgColor : textPrimary,
-                          size: 22,
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        _getLocalizedMood(context, mood['label']),
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: isSelected ? textPrimary : textSecondary,
-                          fontWeight: isSelected
-                              ? FontWeight.w600
-                              : FontWeight.normal,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 24),
-
-            // === JUDUL ===
-            TextField(
-              controller: _titleController,
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w700,
-                color: textPrimary,
-              ),
-              decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.titleHint,
-                hintStyle: TextStyle(
+              // === JUDUL ===
+              TextField(
+                controller: _titleController,
+                style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
-                  color: textSecondary.withValues(alpha: 0.5),
-                ),
-                border: InputBorder.none,
-              ),
-            ),
-            const SizedBox(height: 8),
-
-            // === ISI JURNAL ===
-            Expanded(
-              child: TextField(
-                controller: _contentController,
-                maxLines: null,
-                expands: true,
-                textAlignVertical: TextAlignVertical.top,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: textPrimary.withValues(alpha: 0.8),
-                  height: 1.6,
+                  color: textPrimary,
                 ),
                 decoration: InputDecoration(
-                  hintText: AppLocalizations.of(context)!.contentHint,
+                  hintText: AppLocalizations.of(context)!.titleHint,
                   hintStyle: TextStyle(
-                    fontSize: 16,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
                     color: textSecondary.withValues(alpha: 0.5),
                   ),
                   border: InputBorder.none,
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 8),
+
+              // === ISI JURNAL ===
+              ConstrainedBox(
+                constraints: const BoxConstraints(
+                  minHeight: 200, // Tinggi minimal
+                ),
+                child: TextField(
+                  controller: _contentController,
+                  maxLines: null,
+                  keyboardType: TextInputType.multiline,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: textPrimary.withValues(alpha: 0.8),
+                    height: 1.6,
+                  ),
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.contentHint,
+                    hintStyle: TextStyle(
+                      fontSize: 16,
+                      color: textSecondary.withValues(alpha: 0.5),
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 100), // Ruang ekstra di bawah
+            ],
+          ),
         ),
       ),
     );

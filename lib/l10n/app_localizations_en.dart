@@ -138,16 +138,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aboutDesc =>
-      'A minimalist journal app to capture daily moments, self-reflection, and track your mood. Built with Flutter and Hive.';
+      'A minimalist journal app to capture daily moments, self-reflection, and track your mood.';
 
   @override
-  String get copyright => '© 2026 - Made with ❤️';
+  String get copyright =>
+      'This application is currently under development; please report any bugs immediately.';
 
   @override
   String get aboutApp => 'About App';
 
   @override
-  String get version => 'Version 1.0.0';
+  String get version => 'v1.0.0';
 
   @override
   String get sendFeedback => 'Send Feedback';
@@ -156,7 +157,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get feedbackDesc => 'Suggestions or bug reports';
 
   @override
-  String get madeWith => 'Made with ❤️\nNoteNest v1.0.0';
+  String get madeWith => '© 2026 . All rights reserved.';
 
   @override
   String get stats => 'Statistics';
@@ -247,4 +248,50 @@ class AppLocalizationsEn extends AppLocalizations {
   String journalsWithMood(int count) {
     return '$count journals with this mood';
   }
+
+  @override
+  String readingTime(int count) {
+    return '$count min read';
+  }
+
+  @override
+  String wordCount(int count) {
+    return '$count words';
+  }
+
+  @override
+  String editedTime(String time) {
+    return 'Edited $time';
+  }
+
+  @override
+  String get justNow => 'just now';
+
+  @override
+  String minutesAgo(int count) {
+    return '$count minutes ago';
+  }
+
+  @override
+  String hoursAgo(int count) {
+    return '$count hours ago';
+  }
+
+  @override
+  String daysAgo(int count) {
+    return '$count days ago';
+  }
+
+  @override
+  String monthsAgo(int count) {
+    return '$count months ago';
+  }
+
+  @override
+  String yearsAgo(int count) {
+    return '$count years ago';
+  }
+
+  @override
+  String get edit => 'Edit';
 }

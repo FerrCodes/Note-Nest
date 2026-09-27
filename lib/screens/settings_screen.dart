@@ -344,7 +344,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Text(
               AppLocalizations.of(context)!.copyright,
               style: TextStyle(
-                color: textSecondary.withValues(alpha: 0.6),
+                color: const Color(0xFFFFD60A).withValues(alpha: 0.5),
                 fontSize: 12,
               ),
             ),

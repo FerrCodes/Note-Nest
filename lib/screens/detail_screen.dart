@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import '../models/journal_entry.dart';
 import 'write_screen.dart';
 import '../l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 
 class DetailScreen extends StatefulWidget {
   final JournalEntry entry;
@@ -35,6 +36,49 @@ class _DetailScreenState extends State<DetailScreen> {
     }
   }
 
+  int _getWordCount(String content) {
+    if (content.trim().isEmpty) return 0;
+    return content.trim().split(RegExp(r'\s+')).length;
+  }
+
+  int _getReadingTime(int wordCount) {
+    if (wordCount == 0) return 1;
+    return (wordCount / 200).ceil(); // 200 kata/menit
+  }
+
+  String _formatRelativeTime(BuildContext context, DateTime dateTime) {
+    final l10n = AppLocalizations.of(context)!;
+    final now = DateTime.now();
+    final diff = now.difference(dateTime);
+
+    if (diff.inSeconds < 60) return l10n.justNow;
+    if (diff.inMinutes < 60) return l10n.minutesAgo(diff.inMinutes);
+    if (diff.inHours < 24) return l10n.hoursAgo(diff.inHours);
+    if (diff.inDays < 30) return l10n.daysAgo(diff.inDays);
+    if (diff.inDays < 365) return l10n.monthsAgo((diff.inDays / 30).floor());
+    return l10n.yearsAgo((diff.inDays / 365).floor());
+  }
+
+  String _formatFullDate(String dateStr) {
+    // Coba parsing dengan format baru (ada jam)
+    try {
+      final dt = DateFormat('MMM d, yyyy HH:mm').parse(dateStr);
+      final formatted = DateFormat('d MMMM yyyy', 'id_ID').format(dt);
+      final time = DateFormat('HH.mm').format(dt);
+      return '$formatted - $time';
+    } catch (_) {}
+
+    // Coba parsing dengan format lama (tanpa jam)
+    try {
+      final dt = DateFormat('MMM d, yyyy').parse(dateStr);
+      final formatted = DateFormat('d MMMM yyyy', 'id_ID').format(dt);
+      return formatted;
+    } catch (_) {}
+
+    // Kalau gagal parsing, kembalikan teks asli
+    return dateStr;
+  }
+
   @override
   Widget build(BuildContext context) {
     final entry = widget.entry;
@@ -59,7 +103,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         Row(
                           children: [
                             Text(
-                              entry.date,
+                              _formatFullDate(entry.date),
                               style: TextStyle(
                                 fontSize: 14,
                                 color: textSecondary,
@@ -98,6 +142,53 @@ class _DetailScreenState extends State<DetailScreen> {
                             height: 1.3,
                           ),
                         ),
+                        const SizedBox(height: 12),
+
+                        // === READING TIME & WORD COUNT ===
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.schedule,
+                              size: 14,
+                              color: textSecondary,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              AppLocalizations.of(context)!.readingTime(
+                                _getReadingTime(_getWordCount(entry.content)),
+                              ),
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: textSecondary,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              '·',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: textSecondary,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Icon(
+                              Icons.text_fields,
+                              size: 14,
+                              color: textSecondary,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              AppLocalizations.of(
+                                context,
+                              )!.wordCount(_getWordCount(entry.content)),
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: textSecondary,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 24),
                       ],
                     ),
                   ),
@@ -119,13 +210,47 @@ class _DetailScreenState extends State<DetailScreen> {
                   // === 3. ISI JURNAL DI BAWAH GAMBAR ===
                   Padding(
                     padding: const EdgeInsets.fromLTRB(24, 24, 24, 50),
-                    child: Text(
-                      entry.content,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: textPrimary.withValues(alpha: 0.8),
-                        height: 1.6,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Isi Jurnal
+                        Text(
+                          entry.content,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: textPrimary.withValues(alpha: 0.8),
+                            height: 1.6,
+                          ),
+                        ),
+
+                        // === WAKTU DIEDIT ===
+                        if (entry.lastEdited != null) ...[
+                          const SizedBox(height: 24),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.edit_outlined,
+                                size: 12,
+                                color: textSecondary.withValues(alpha: 0.6),
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                AppLocalizations.of(context)!.editedTime(
+                                  _formatRelativeTime(
+                                    context,
+                                    entry.lastEdited!,
+                                  ),
+                                ),
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: textSecondary.withValues(alpha: 0.6),
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ],
                     ),
                   ),
                 ],
@@ -145,7 +270,7 @@ class _DetailScreenState extends State<DetailScreen> {
               top: 20,
               right: 20,
               child: _buildCircleButton(
-                icon: Icons.edit_outlined,
+                label: AppLocalizations.of(context)!.edit,
                 onTap: () async {
                   // Buka halaman edit
                   await Navigator.push(
@@ -172,7 +297,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   );
                   // Setelah edit selesai, refresh halaman detail
                   if (mounted) {
-                    setState(() {}); // <-- INI YANG BIKIN AUTO-REFRESH
+                    setState(() {});
                   }
                 },
               ),
@@ -184,19 +309,24 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   Widget _buildCircleButton({
-    required IconData icon,
+    IconData? icon, // <-- opsional
     required VoidCallback onTap,
+    String? label,
   }) {
+    final isLabeled = label != null;
     return GestureDetector(
       onTap: () {
         HapticFeedback.selectionClick();
         onTap();
       },
       child: Container(
-        padding: const EdgeInsets.all(12),
+        padding: isLabeled
+            ? const EdgeInsets.symmetric(horizontal: 16, vertical: 10)
+            : const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: cardColor.withValues(alpha: 0.9),
-          shape: BoxShape.circle,
+          shape: isLabeled ? BoxShape.rectangle : BoxShape.circle,
+          borderRadius: isLabeled ? BorderRadius.circular(20) : null,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.5),
@@ -205,7 +335,16 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
           ],
         ),
-        child: Icon(icon, color: textPrimary, size: 20),
+        child: isLabeled
+            ? Text(
+                label,
+                style: TextStyle(
+                  color: textPrimary,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              )
+            : Icon(icon, color: textPrimary, size: 20),
       ),
     );
   }

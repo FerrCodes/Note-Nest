@@ -9,15 +9,15 @@ import 'screens/stats_screen.dart';
 import 'screens/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Inisialisasi Hive
   await Hive.initFlutter();
-
+  Intl.defaultLocale = 'id_ID';
   // Daftarkan adapter
   Hive.registerAdapter(JournalEntryAdapter());
-
   // Buka "box" untuk menyimpan data
   await Hive.openBox<JournalEntry>('journalBox');
   await Hive.openBox('settingsBox'); // <-- TAMBAHKAN INI
@@ -154,6 +154,8 @@ class _ReflectScreenState extends State<ReflectScreen> {
                           Expanded(
                             child: TextField(
                               controller: _searchController,
+                              autofocus: false,
+                              textInputAction: TextInputAction.search,
                               style: TextStyle(
                                 color: textPrimary,
                                 fontSize: 15,

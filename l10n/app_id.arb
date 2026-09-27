@@ -41,13 +41,13 @@
   "deleteAllJournals": "Hapus Semua Jurnal",
   "deleteAllJournalsDesc": "Hapus permanen semua data jurnal",
   "about": "Tentang",
-  "aboutDesc": "Aplikasi jurnal minimalis untuk mencatat momen harian, refleksi diri, dan melacak mood. Dibuat dengan Flutter dan Hive.",
-  "copyright": "© 2026 - Dibuat dengan ❤️",
+  "aboutDesc": "Aplikasi jurnal minimalis untuk mencatat momen harian, refleksi diri, dan melacak mood.",
+  "copyright": "Aplikasi ini sedang dalam pengembangan, jika menemukan bug segera beritahu.",
   "aboutApp": "Tentang Aplikasi",
-  "version": "Versi 1.0.0",
+  "version": "v1.0.0",
   "sendFeedback": "Kirim Feedback",
   "feedbackDesc": "Saran atau laporan bug",
-  "madeWith": "Dibuat dengan ❤️\nNoteNest v1.0.0",
+  "madeWith": "© 2026. All rights reserved.",
   "stats": "Statistik",
   "streak": "Streak",
   "days": "Hari",
@@ -82,5 +82,71 @@
         "type": "int"
       }
     }
-  }
+  },
+    "readingTime": "{count} menit baca",
+  "@readingTime": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "wordCount": "{count} kata",
+  "@wordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "editedTime": "Diedit {time}",
+  "@editedTime": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "justNow": "baru saja",
+  "minutesAgo": "{count} menit lalu",
+  "@minutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hoursAgo": "{count} jam lalu",
+  "@hoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "daysAgo": "{count} hari lalu",
+  "@daysAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "monthsAgo": "{count} bulan lalu",
+  "@monthsAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "yearsAgo": "{count} tahun lalu",
+  "@yearsAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "edit": "Edit"
 }

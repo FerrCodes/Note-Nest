@@ -347,13 +347,13 @@ abstract class AppLocalizations {
   /// No description provided for @aboutDesc.
   ///
   /// In en, this message translates to:
-  /// **'A minimalist journal app to capture daily moments, self-reflection, and track your mood. Built with Flutter and Hive.'**
+  /// **'A minimalist journal app to capture daily moments, self-reflection, and track your mood.'**
   String get aboutDesc;
 
   /// No description provided for @copyright.
   ///
   /// In en, this message translates to:
-  /// **'© 2026 - Made with ❤️'**
+  /// **'This application is currently under development; please report any bugs immediately.'**
   String get copyright;
 
   /// No description provided for @aboutApp.
@@ -365,7 +365,7 @@ abstract class AppLocalizations {
   /// No description provided for @version.
   ///
   /// In en, this message translates to:
-  /// **'Version 1.0.0'**
+  /// **'v1.0.0'**
   String get version;
 
   /// No description provided for @sendFeedback.
@@ -383,7 +383,7 @@ abstract class AppLocalizations {
   /// No description provided for @madeWith.
   ///
   /// In en, this message translates to:
-  /// **'Made with ❤️\nNoteNest v1.0.0'**
+  /// **'© 2026 . All rights reserved.'**
   String get madeWith;
 
   /// No description provided for @stats.
@@ -553,6 +553,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} journals with this mood'**
   String journalsWithMood(int count);
+
+  /// No description provided for @readingTime.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} min read'**
+  String readingTime(int count);
+
+  /// No description provided for @wordCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} words'**
+  String wordCount(int count);
+
+  /// No description provided for @editedTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Edited {time}'**
+  String editedTime(String time);
+
+  /// No description provided for @justNow.
+  ///
+  /// In en, this message translates to:
+  /// **'just now'**
+  String get justNow;
+
+  /// No description provided for @minutesAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} minutes ago'**
+  String minutesAgo(int count);
+
+  /// No description provided for @hoursAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} hours ago'**
+  String hoursAgo(int count);
+
+  /// No description provided for @daysAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} days ago'**
+  String daysAgo(int count);
+
+  /// No description provided for @monthsAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} months ago'**
+  String monthsAgo(int count);
+
+  /// No description provided for @yearsAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} years ago'**
+  String yearsAgo(int count);
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
 }
 
 class _AppLocalizationsDelegate
