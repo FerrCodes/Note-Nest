@@ -22,91 +22,154 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bgColor,
-      appBar: AppBar(
-        backgroundColor: bgColor,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new, color: textPrimary, size: 20),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          AppLocalizations.of(context)!.settings,
-          style: TextStyle(
-            color: textPrimary,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-        children: [
-          // === SECTION 0: BAHASA ===
-          _buildSectionTitle(AppLocalizations.of(context)!.language),
-          const SizedBox(height: 12),
-          _buildLanguageSelector(),
-          const SizedBox(height: 32),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            // === KONTEN UTAMA ===
+            ListView(
+              padding: const EdgeInsets.fromLTRB(24, 80, 24, 24),
+              children: [
+                // === SECTION 0: BAHASA ===
+                _buildSectionTitle(AppLocalizations.of(context)!.language),
+                const SizedBox(height: 12),
+                _buildLanguageSelector(),
+                const SizedBox(height: 32),
 
-          // === SECTION 1: DATA ===
-          _buildSectionTitle(AppLocalizations.of(context)!.data),
-          const SizedBox(height: 12),
-          _buildSettingItem(
-            icon: Icons.file_download_outlined,
-            title: AppLocalizations.of(context)!.exportJournals,
-            subtitle: AppLocalizations.of(context)!.exportJournalsDesc,
-            onTap: _exportJournals,
-          ),
-          const SizedBox(height: 8),
-          _buildSettingItem(
-            icon: Icons.delete_outline,
-            title: AppLocalizations.of(context)!.deleteAllJournals,
-            subtitle: AppLocalizations.of(context)!.deleteAllJournalsDesc,
-            onTap: _confirmDeleteAll,
-            isDestructive: true,
-          ),
+                // === SECTION 1: DATA ===
+                _buildSectionTitle(AppLocalizations.of(context)!.data),
+                const SizedBox(height: 12),
+                _buildSettingItem(
+                  icon: Icons.file_download_outlined,
+                  title: AppLocalizations.of(context)!.exportJournals,
+                  subtitle: AppLocalizations.of(context)!.exportJournalsDesc,
+                  onTap: _exportJournals,
+                ),
+                const SizedBox(height: 8),
+                _buildSettingItem(
+                  icon: Icons.delete_outline,
+                  title: AppLocalizations.of(context)!.deleteAllJournals,
+                  subtitle: AppLocalizations.of(context)!.deleteAllJournalsDesc,
+                  onTap: _confirmDeleteAll,
+                  isDestructive: true,
+                ),
 
-          const SizedBox(height: 32),
+                const SizedBox(height: 32),
 
-          // === SECTION 2: TENTANG ===
-          _buildSectionTitle(AppLocalizations.of(context)!.about),
-          const SizedBox(height: 12),
-          _buildSettingItem(
-            icon: Icons.info_outline,
-            title: AppLocalizations.of(context)!.aboutApp,
-            subtitle: AppLocalizations.of(context)!.version,
-            onTap: _showAboutDialog,
-          ),
-          const SizedBox(height: 8),
-          _buildSettingItem(
-            icon: Icons.mail_outline,
-            title: AppLocalizations.of(context)!.sendFeedback,
-            subtitle: AppLocalizations.of(context)!.feedbackDesc,
-            onTap: () {
-              HapticFeedback.selectionClick();
-              // Nanti bisa diarahkan ke email
-            },
-          ),
+                // === SECTION 2: TENTANG ===
+                _buildSectionTitle(AppLocalizations.of(context)!.about),
+                const SizedBox(height: 12),
+                _buildSettingItem(
+                  icon: Icons.info_outline,
+                  title: AppLocalizations.of(context)!.aboutApp,
+                  subtitle: AppLocalizations.of(context)!.version,
+                  onTap: _showAboutDialog,
+                ),
+                const SizedBox(height: 8),
+                _buildSettingItem(
+                  icon: Icons.mail_outline,
+                  title: AppLocalizations.of(context)!.sendFeedback,
+                  subtitle: AppLocalizations.of(context)!.feedbackDesc,
+                  onTap: () {
+                    HapticFeedback.selectionClick();
+                    // Nanti bisa diarahkan ke email
+                  },
+                ),
 
-          const SizedBox(height: 40),
+                const SizedBox(height: 40),
 
-          // Footer
-          Center(
-            child: Text(
-              AppLocalizations.of(context)!.madeWith,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 12,
-                color: textSecondary.withValues(alpha: 0.5),
-                height: 1.6,
+                // === FOOTER ===
+                Center(
+                  child: Text(
+                    AppLocalizations.of(context)!.madeWith,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: textSecondary.withValues(alpha: 0.5),
+                      height: 1.6,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            // === TOMBOL CLOSE (KIRI ATAS) ===
+            Positioned(
+              top: 12,
+              left: 20,
+              child: _buildCircleButton(
+                icon: Icons.close,
+                onTap: () => Navigator.pop(context),
               ),
             ),
-          ),
-        ],
+
+            // === PILL JUDUL (TENGAH ATAS) ===
+            Positioned(
+              top: 12,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 12,
+                  ),
+                  decoration: BoxDecoration(
+                    color: cardColor.withValues(alpha: 0.9),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.3),
+                        blurRadius: 10,
+                        offset: const Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    AppLocalizations.of(context)!.settings,
+                    style: TextStyle(
+                      color: textPrimary,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
+  // === TOMBOL BULAT ===
+  Widget _buildCircleButton({
+    required IconData icon,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        HapticFeedback.selectionClick();
+        onTap();
+      },
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: cardColor.withValues(alpha: 0.9),
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.3),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Icon(icon, color: textPrimary, size: 20),
+      ),
+    );
+  }
+
+  // === LANGUAGE SELECTOR ===
   Widget _buildLanguageSelector() {
     final settingsBox = Hive.box('settingsBox');
     final currentLang = settingsBox.get('languageCode', defaultValue: 'en');
@@ -154,8 +217,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
     );
   }
-  // === WIDGET BANTUAN ===
 
+  // === WIDGET BANTUAN ===
   Widget _buildSectionTitle(String title) {
     return Text(
       title.toUpperCase(),
@@ -243,9 +306,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       return;
     }
 
-    // Buat string berisi semua jurnal
     final buffer = StringBuffer();
-    buffer.writeln('=== MINIMAL JOURNAL EXPORT ===');
+    buffer.writeln('=== NOTENEST EXPORT ===');
     buffer.writeln(
       'Tanggal Export: ${DateFormat('MMM d, yyyy - HH:mm').format(DateTime.now())}',
     );
@@ -264,7 +326,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       buffer.writeln('\n');
     }
 
-    // Salin ke clipboard
     Clipboard.setData(ClipboardData(text: buffer.toString()));
 
     _showSnackBar(AppLocalizations.of(context)!.exportedToClipboard);
@@ -355,7 +416,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             onPressed: () => Navigator.pop(context),
             child: Text(
               AppLocalizations.of(context)!.cancel,
-              style: TextStyle(color: Color(0xFF0A84FF)),
+              style: const TextStyle(color: Color(0xFF0A84FF)),
             ),
           ),
         ],

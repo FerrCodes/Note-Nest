@@ -76,6 +76,7 @@
   "exportedToClipboard": "Jurnal disalin ke clipboard! Tempel di Notes/Email.",
   "nothingToExport": "Belum ada jurnal untuk di-export",
   "journalsWithMood": "{count} jurnal dengan mood ini",
+    "journalDetail": "Detail Jurnal",
   "@journalsWithMood": {
     "placeholders": {
       "count": {

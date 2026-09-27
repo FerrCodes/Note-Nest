@@ -250,6 +250,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get journalDetail => 'Journal Detail';
+
+  @override
   String readingTime(int count) {
     return '$count min read';
   }

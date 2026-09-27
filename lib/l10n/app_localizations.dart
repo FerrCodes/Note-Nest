@@ -554,6 +554,12 @@ abstract class AppLocalizations {
   /// **'{count} journals with this mood'**
   String journalsWithMood(int count);
 
+  /// No description provided for @journalDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal Detail'**
+  String get journalDetail;
+
   /// No description provided for @readingTime.
   ///
   /// In en, this message translates to:

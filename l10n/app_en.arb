@@ -76,6 +76,7 @@
   "exportedToClipboard": "Journals copied to clipboard! Paste in Notes/Email.",
   "nothingToExport": "No journals to export yet",
   "journalsWithMood": "{count} journals with this mood",
+    "journalDetail": "Journal Detail",
   "@journalsWithMood": {
     "placeholders": {
       "count": {

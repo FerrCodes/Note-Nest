@@ -250,6 +250,9 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
+  String get journalDetail => 'Detail Jurnal';
+
+  @override
   String readingTime(int count) {
     return '$count menit baca';
   }
