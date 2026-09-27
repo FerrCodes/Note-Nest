@@ -136,6 +136,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get about => 'Tentang';
 
   @override
+  String get aboutDesc =>
+      'Aplikasi jurnal minimalis untuk mencatat momen harian, refleksi diri, dan melacak mood. Dibuat dengan Flutter dan Hive.';
+
+  @override
+  String get copyright => '© 2026 - Dibuat dengan ❤️';
+
+  @override
   String get aboutApp => 'Tentang Aplikasi';
 
   @override
@@ -235,4 +242,9 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get nothingToExport => 'Belum ada jurnal untuk di-export';
+
+  @override
+  String journalsWithMood(int count) {
+    return '$count jurnal dengan mood ini';
+  }
 }

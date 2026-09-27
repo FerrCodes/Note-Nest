@@ -41,6 +41,8 @@
   "deleteAllJournals": "Hapus Semua Jurnal",
   "deleteAllJournalsDesc": "Hapus permanen semua data jurnal",
   "about": "Tentang",
+  "aboutDesc": "Aplikasi jurnal minimalis untuk mencatat momen harian, refleksi diri, dan melacak mood. Dibuat dengan Flutter dan Hive.",
+  "copyright": "© 2026 - Dibuat dengan ❤️",
   "aboutApp": "Tentang Aplikasi",
   "version": "Versi 1.0.0",
   "sendFeedback": "Kirim Feedback",
@@ -72,5 +74,13 @@
   "onboarding3Title": "Lihat Perkembanganmu",
   "onboarding3Desc": "Statistik sederhana membantumu memahami diri sendiri lebih dalam.",
   "exportedToClipboard": "Jurnal disalin ke clipboard! Tempel di Notes/Email.",
-  "nothingToExport": "Belum ada jurnal untuk di-export"
+  "nothingToExport": "Belum ada jurnal untuk di-export",
+  "journalsWithMood": "{count} jurnal dengan mood ini",
+  "@journalsWithMood": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

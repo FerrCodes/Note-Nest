@@ -72,7 +72,6 @@ class MyApp extends StatelessWidget {
 
 class ReflectScreen extends StatefulWidget {
   const ReflectScreen({super.key});
-
   @override
   State<ReflectScreen> createState() => _ReflectScreenState();
 }
@@ -81,6 +80,22 @@ class _ReflectScreenState extends State<ReflectScreen> {
   // State untuk pencarian & filter
   String _searchQuery = '';
   String? _selectedMoodFilter; // null = tampilkan semua
+
+  String _getLocalizedMood(BuildContext context, String mood) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (mood) {
+      case 'Calm':
+        return l10n.filterCalm;
+      case 'Grateful':
+        return l10n.filterGrateful;
+      case 'Peaceful':
+        return l10n.filterPeaceful;
+      case 'Focused':
+        return l10n.filterFocused;
+      default:
+        return mood;
+    }
+  }
 
   final TextEditingController _searchController = TextEditingController();
 
@@ -363,16 +378,34 @@ class _ReflectScreenState extends State<ReflectScreen> {
       builder: (context, Box<JournalEntry> box, _) {
         if (box.isEmpty) {
           return Container(
-            padding: const EdgeInsets.all(20),
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
             decoration: BoxDecoration(
               color: cardColor,
               borderRadius: BorderRadius.circular(24),
             ),
-            child: Center(
-              child: Text(
-                'Belum ada jurnal. Buat baru sekarang.  ',
-                style: TextStyle(color: textSecondary),
-              ),
+            child: Column(
+              children: [
+                const SizedBox(height: 16),
+                Text(
+                  AppLocalizations.of(context)!.noJournalsTitle,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  AppLocalizations.of(context)!.noJournalsDesc,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: textSecondary,
+                    height: 1.5,
+                  ),
+                ),
+              ],
             ),
           );
         }
@@ -403,11 +436,11 @@ class _ReflectScreenState extends State<ReflectScreen> {
         }).toList();
 
         // Kalau hasil filter kosong, tampilkan pesan
-        // Kalau hasil filter kosong, tampilkan pesan
         if (filteredEntries.isEmpty) {
           // Pesan khusus untuk filter favorit
           final isEmptyFavorite = _selectedMoodFilter == 'FAVORITE';
           return Container(
+            width: double.infinity,
             padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
             decoration: BoxDecoration(
               color: cardColor,
@@ -415,12 +448,6 @@ class _ReflectScreenState extends State<ReflectScreen> {
             ),
             child: Column(
               children: [
-                Icon(
-                  isEmptyFavorite ? Icons.bookmark_border : Icons.search_off,
-                  size: 48,
-                  color: textSecondary.withValues(alpha: 0.5),
-                ),
-                const SizedBox(height: 16),
                 Text(
                   isEmptyFavorite
                       ? AppLocalizations.of(context)!.noFavoritesTitle
@@ -612,7 +639,7 @@ class _ReflectScreenState extends State<ReflectScreen> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
-                              entry.mood,
+                              _getLocalizedMood(context, entry.mood),
                               style: TextStyle(
                                 color: textSecondary,
                                 fontSize: 10,

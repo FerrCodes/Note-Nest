@@ -137,6 +137,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get about => 'About';
 
   @override
+  String get aboutDesc =>
+      'A minimalist journal app to capture daily moments, self-reflection, and track your mood. Built with Flutter and Hive.';
+
+  @override
+  String get copyright => '© 2026 - Made with ❤️';
+
+  @override
   String get aboutApp => 'About App';
 
   @override
@@ -235,4 +242,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get nothingToExport => 'No journals to export yet';
+
+  @override
+  String journalsWithMood(int count) {
+    return '$count journals with this mood';
+  }
 }

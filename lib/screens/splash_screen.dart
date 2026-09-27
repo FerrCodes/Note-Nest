@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'onboarding_screen.dart';
 import '../main.dart';
+import '../l10n/app_localizations.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -70,9 +71,9 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
             const SizedBox(height: 24),
-            const Text(
-              'NoteNest',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context)!.appName,
+              style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w700,
                 color: Color(0xFFF2F2F7),
@@ -80,9 +81,9 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
             const SizedBox(height: 8),
-            const Text(
-              'A nest for your thoughts.',
-              style: TextStyle(
+            Text(
+              'Reflect. Write. Grow.',
+              style: const TextStyle(
                 fontSize: 13,
                 color: Color(0xFF8E8E93),
                 letterSpacing: 1.5,

@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
 import '../models/journal_entry.dart';
+import '../l10n/app_localizations.dart';
 
 class StatsScreen extends StatefulWidget {
   const StatsScreen({super.key});
@@ -39,7 +40,7 @@ class _StatsScreenState extends State<StatsScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'Statistik',
+          AppLocalizations.of(context)!.stats,
           style: TextStyle(
             color: textPrimary,
             fontSize: 18,
@@ -65,7 +66,7 @@ class _StatsScreenState extends State<StatsScreen> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Belum ada data',
+                    AppLocalizations.of(context)!.noDataTitle,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -74,7 +75,7 @@ class _StatsScreenState extends State<StatsScreen> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Tulis jurnal pertamamu untuk\nmelihat statistik di sini.',
+                    AppLocalizations.of(context)!.noDataDesc,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 13,
@@ -163,7 +164,7 @@ class _StatsScreenState extends State<StatsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '$streak Hari',
+                            '$streak ${AppLocalizations.of(context)!.days}',
                             style: TextStyle(
                               fontSize: 32,
                               fontWeight: FontWeight.w700,
@@ -174,8 +175,8 @@ class _StatsScreenState extends State<StatsScreen> {
                           const SizedBox(height: 6),
                           Text(
                             streak == 0
-                                ? 'Mulai streak hari ini!'
-                                : 'Streak menulis jurnal',
+                                ? AppLocalizations.of(context)!.startStreak
+                                : AppLocalizations.of(context)!.streakDesc,
                             style: TextStyle(
                               fontSize: 13,
                               color: textSecondary,
@@ -195,7 +196,7 @@ class _StatsScreenState extends State<StatsScreen> {
                       child: _buildStatCard(
                         icon: Icons.auto_stories_outlined,
                         value: '$totalEntries',
-                        label: 'Total Jurnal',
+                        label: AppLocalizations.of(context)!.totalJournals,
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -203,7 +204,7 @@ class _StatsScreenState extends State<StatsScreen> {
                       child: _buildStatCard(
                         icon: Icons.calendar_today_outlined,
                         value: '$thisWeekCount',
-                        label: 'Minggu Ini',
+                        label: AppLocalizations.of(context)!.thisWeek,
                       ),
                     ),
                   ],
@@ -212,7 +213,7 @@ class _StatsScreenState extends State<StatsScreen> {
 
                 // === KALENDER MINI ===
                 Text(
-                  'Kalender Bulan Ini',
+                  AppLocalizations.of(context)!.thisMonth,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -232,7 +233,7 @@ class _StatsScreenState extends State<StatsScreen> {
 
                 // === GRAFIK MINGGUAN ===
                 Text(
-                  '7 Hari Terakhir',
+                  AppLocalizations.of(context)!.weeklyChart,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -255,7 +256,7 @@ class _StatsScreenState extends State<StatsScreen> {
 
                 // === GRAFIK MOOD ===
                 Text(
-                  'Distribusi Mood',
+                  AppLocalizations.of(context)!.moodDistribution,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -337,7 +338,7 @@ class _StatsScreenState extends State<StatsScreen> {
 
                 // === MOOD TERBANYAK ===
                 Text(
-                  'Mood Terbanyak',
+                  AppLocalizations.of(context)!.topMood,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -381,7 +382,9 @@ class _StatsScreenState extends State<StatsScreen> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '$topCount jurnal dengan mood ini',
+                            AppLocalizations.of(
+                              context,
+                            )!.journalsWithMood(topCount),
                             style: TextStyle(
                               fontSize: 13,
                               color: textSecondary,

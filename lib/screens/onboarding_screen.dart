@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../main.dart';
+import '../l10n/app_localizations.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -19,26 +20,26 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final Color textSecondary = const Color(0xFF8E8E93);
   final Color cardColor = const Color(0xFF1E1E1E);
 
-  final List<Map<String, dynamic>> _pages = [
-    {
-      'icon': Icons.edit_note,
-      'title': 'Tulis Refleksimu',
-      'description':
-          'Catat momen, pikiran, dan perasaanmu setiap hari. Tidak ada aturan, tidak ada tekanan.',
-    },
-    {
-      'icon': Icons.mood_outlined,
-      'title': 'Lacak Moodmu',
-      'description':
-          'Pilih mood yang mewakili harimu. Lihat pola emosimu dari waktu ke waktu.',
-    },
-    {
-      'icon': Icons.bar_chart_outlined,
-      'title': 'Lihat Perkembanganmu',
-      'description':
-          'Statistik sederhana membantumu memahami diri sendiri lebih dalam.',
-    },
-  ];
+  List<Map<String, dynamic>> _getPages(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return [
+      {
+        'icon': Icons.edit_note,
+        'title': l10n.onboarding1Title,
+        'description': l10n.onboarding1Desc,
+      },
+      {
+        'icon': Icons.mood_outlined,
+        'title': l10n.onboarding2Title,
+        'description': l10n.onboarding2Desc,
+      },
+      {
+        'icon': Icons.bar_chart_outlined,
+        'title': l10n.onboarding3Title,
+        'description': l10n.onboarding3Desc,
+      },
+    ];
+  }
 
   Future<void> _finishOnboarding() async {
     HapticFeedback.mediumImpact();
@@ -60,7 +61,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isLastPage = _currentPage == _pages.length - 1;
+    final pages = _getPages(context);
+    final isLastPage = _currentPage == pages.length - 1;
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -74,7 +76,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 child: TextButton(
                   onPressed: _finishOnboarding,
                   child: Text(
-                    'Skip',
+                    AppLocalizations.of(context)!.skip,
                     style: TextStyle(
                       color: textSecondary,
                       fontSize: 14,
@@ -87,14 +89,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             Expanded(
               child: PageView.builder(
                 controller: _controller,
-                itemCount: _pages.length,
+                itemCount: pages.length,
                 onPageChanged: (index) {
                   setState(() {
                     _currentPage = index;
                   });
                 },
                 itemBuilder: (context, index) {
-                  final page = _pages[index];
+                  final page = pages[index];
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 32),
                     child: Column(
@@ -148,7 +150,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(_pages.length, (index) {
+              children: List.generate(pages.length, (index) {
                 return AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   margin: const EdgeInsets.symmetric(horizontal: 4),
@@ -188,7 +190,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                     child: Center(
                       child: Text(
-                        isLastPage ? 'Mulai Sekarang' : 'Lanjut',
+                        isLastPage
+                            ? AppLocalizations.of(context)!.getStarted
+                            : AppLocalizations.of(context)!.next,
                         style: TextStyle(
                           color: bgColor,
                           fontSize: 16,

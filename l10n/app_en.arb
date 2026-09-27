@@ -41,6 +41,8 @@
   "deleteAllJournals": "Delete All Journals",
   "deleteAllJournalsDesc": "Permanently delete all journal data",
   "about": "About",
+  "aboutDesc": "A minimalist journal app to capture daily moments, self-reflection, and track your mood. Built with Flutter and Hive.",
+  "copyright": "© 2026 - Made with ❤️",
   "aboutApp": "About App",
   "version": "Version 1.0.0",
   "sendFeedback": "Send Feedback",
@@ -72,5 +74,13 @@
   "onboarding3Title": "See Your Growth",
   "onboarding3Desc": "Simple statistics help you understand yourself better.",
   "exportedToClipboard": "Journals copied to clipboard! Paste in Notes/Email.",
-  "nothingToExport": "No journals to export yet"
+  "nothingToExport": "No journals to export yet",
+  "journalsWithMood": "{count} journals with this mood",
+  "@journalsWithMood": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

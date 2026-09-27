@@ -337,12 +337,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             const SizedBox(height: 12),
             Text(
-              'Aplikasi jurnal minimalis untuk mencatat momen harian, refleksi diri, dan melacak mood. Dibuat dengan Flutter dan Hive.',
+              AppLocalizations.of(context)!.aboutDesc,
               style: TextStyle(color: textSecondary, height: 1.5, fontSize: 13),
             ),
             const SizedBox(height: 16),
             Text(
-              '© 2026 - Dibuat dengan ❤️',
+              AppLocalizations.of(context)!.copyright,
               style: TextStyle(
                 color: textSecondary.withValues(alpha: 0.6),
                 fontSize: 12,

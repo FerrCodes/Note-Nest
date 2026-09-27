@@ -344,6 +344,18 @@ abstract class AppLocalizations {
   /// **'About'**
   String get about;
 
+  /// No description provided for @aboutDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A minimalist journal app to capture daily moments, self-reflection, and track your mood. Built with Flutter and Hive.'**
+  String get aboutDesc;
+
+  /// No description provided for @copyright.
+  ///
+  /// In en, this message translates to:
+  /// **'© 2026 - Made with ❤️'**
+  String get copyright;
+
   /// No description provided for @aboutApp.
   ///
   /// In en, this message translates to:
@@ -535,6 +547,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No journals to export yet'**
   String get nothingToExport;
+
+  /// No description provided for @journalsWithMood.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} journals with this mood'**
+  String journalsWithMood(int count);
 }
 
 class _AppLocalizationsDelegate

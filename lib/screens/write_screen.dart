@@ -21,6 +21,22 @@ class _WriteScreenState extends State<WriteScreen> {
   String _selectedMood = 'Calm';
   late String _selectedImage;
 
+  String _getLocalizedMood(BuildContext context, String mood) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (mood) {
+      case 'Calm':
+        return l10n.filterCalm;
+      case 'Grateful':
+        return l10n.filterGrateful;
+      case 'Peaceful':
+        return l10n.filterPeaceful;
+      case 'Focused':
+        return l10n.filterFocused;
+      default:
+        return mood;
+    }
+  }
+
   final Color bgColor = const Color(0xFF121212);
   final Color cardColor = const Color(0xFF1E1E1E);
   final Color textPrimary = const Color(0xFFF2F2F7);
@@ -239,7 +255,7 @@ class _WriteScreenState extends State<WriteScreen> {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        mood['label'],
+                        _getLocalizedMood(context, mood['label']),
                         style: TextStyle(
                           fontSize: 11,
                           color: isSelected ? textPrimary : textSecondary,
