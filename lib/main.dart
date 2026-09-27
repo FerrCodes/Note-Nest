@@ -7,6 +7,8 @@ import 'models/journal_entry.dart';
 import 'screens/settings_screen.dart';
 import 'screens/stats_screen.dart';
 import 'screens/splash_screen.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,18 +37,35 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.dark, // Set ke dark mode
-        scaffoldBackgroundColor: const Color(0xFF121212), // Hitam soft
-        fontFamily: 'Inter',
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.white,
-          brightness: Brightness.dark,
-        ),
-      ),
-      home: const SplashScreen(),
+    final settingsBox = Hive.box('settingsBox');
+
+    return ValueListenableBuilder(
+      valueListenable: settingsBox.listenable(),
+      builder: (context, Box box, _) {
+        final currentLang = box.get('languageCode', defaultValue: 'en');
+
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          locale: Locale(currentLang),
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [Locale('en'), Locale('id')],
+          theme: ThemeData(
+            brightness: Brightness.dark,
+            scaffoldBackgroundColor: const Color(0xFF121212),
+            fontFamily: 'Inter',
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.white,
+              brightness: Brightness.dark,
+            ),
+          ),
+          home: const SplashScreen(),
+        );
+      },
     );
   }
 }
@@ -97,7 +116,7 @@ class _ReflectScreenState extends State<ReflectScreen> {
                   children: [
                     // Header
                     Text(
-                      'Reflect',
+                      AppLocalizations.of(context)!.reflect,
                       style: TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.w700,
@@ -125,7 +144,9 @@ class _ReflectScreenState extends State<ReflectScreen> {
                                 fontSize: 15,
                               ),
                               decoration: InputDecoration(
-                                hintText: 'Cari jurnal...',
+                                hintText: AppLocalizations.of(
+                                  context,
+                                )!.searchHint,
                                 hintStyle: TextStyle(
                                   color: textSecondary.withValues(alpha: 0.5),
                                   fontSize: 15,
@@ -163,17 +184,35 @@ class _ReflectScreenState extends State<ReflectScreen> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          _buildFilterChip('Semua', null),
+                          _buildFilterChip(
+                            AppLocalizations.of(context)!.filterAll,
+                            null,
+                          ),
                           const SizedBox(width: 8),
-                          _buildFilterChip('Favorit', 'FAVORITE'),
+                          _buildFilterChip(
+                            AppLocalizations.of(context)!.filterFavorite,
+                            'FAVORITE',
+                          ),
                           const SizedBox(width: 8),
-                          _buildFilterChip('Calm', 'Calm'),
+                          _buildFilterChip(
+                            AppLocalizations.of(context)!.filterCalm,
+                            'Calm',
+                          ),
                           const SizedBox(width: 8),
-                          _buildFilterChip('Grateful', 'Grateful'),
+                          _buildFilterChip(
+                            AppLocalizations.of(context)!.filterGrateful,
+                            'Grateful',
+                          ),
                           const SizedBox(width: 8),
-                          _buildFilterChip('Peaceful', 'Peaceful'),
+                          _buildFilterChip(
+                            AppLocalizations.of(context)!.filterPeaceful,
+                            'Peaceful',
+                          ),
                           const SizedBox(width: 8),
-                          _buildFilterChip('Focused', 'Focused'),
+                          _buildFilterChip(
+                            AppLocalizations.of(context)!.filterFocused,
+                            'Focused',
+                          ),
                         ],
                       ),
                     ),
@@ -181,7 +220,7 @@ class _ReflectScreenState extends State<ReflectScreen> {
 
                     // Quote
                     Text(
-                      '"Small shifts in perspective can open the door to profound inner stillness."',
+                      AppLocalizations.of(context)!.quote,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
@@ -194,7 +233,7 @@ class _ReflectScreenState extends State<ReflectScreen> {
 
                     // Journal Card
                     Text(
-                      'Today\'s Entry',
+                      AppLocalizations.of(context)!.todaysEntry,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -383,7 +422,9 @@ class _ReflectScreenState extends State<ReflectScreen> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  isEmptyFavorite ? 'Belum ada favorit' : 'Tidak ada hasil',
+                  isEmptyFavorite
+                      ? AppLocalizations.of(context)!.noFavoritesTitle
+                      : AppLocalizations.of(context)!.noResultsTitle,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -393,8 +434,8 @@ class _ReflectScreenState extends State<ReflectScreen> {
                 const SizedBox(height: 8),
                 Text(
                   isEmptyFavorite
-                      ? 'Tap ikon bookmark di jurnal\nuntuk menandainya sebagai favorit.'
-                      : 'Coba kata kunci lain atau ubah filter mood.',
+                      ? AppLocalizations.of(context)!.noFavoritesDesc
+                      : AppLocalizations.of(context)!.noResultsDesc,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 13,
@@ -438,28 +479,28 @@ class _ReflectScreenState extends State<ReflectScreen> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       title: Text(
-                        'Hapus Jurnal?',
+                        AppLocalizations.of(context)!.deleteConfirmTitle,
                         style: TextStyle(
                           color: textPrimary,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       content: Text(
-                        'Jurnal ini akan dihapus permanen dan tidak bisa dikembalikan.',
+                        AppLocalizations.of(context)!.deleteConfirmDesc,
                         style: TextStyle(color: textSecondary),
                       ),
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.pop(context, false),
                           child: Text(
-                            'Batal',
+                            AppLocalizations.of(context)!.cancel,
                             style: TextStyle(color: textSecondary),
                           ),
                         ),
                         TextButton(
                           onPressed: () => Navigator.pop(context, true),
-                          child: const Text(
-                            'Hapus',
+                          child: Text(
+                            AppLocalizations.of(context)!.delete,
                             style: TextStyle(color: Colors.red),
                           ),
                         ),
@@ -472,7 +513,9 @@ class _ReflectScreenState extends State<ReflectScreen> {
                   entry.delete();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: const Text('Jurnal berhasil dihapus'),
+                      content: Text(
+                        AppLocalizations.of(context)!.journalDeleted,
+                      ),
                       backgroundColor: cardColor,
                       duration: const Duration(seconds: 2),
                       behavior: SnackBarBehavior.floating,

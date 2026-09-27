@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import '../models/journal_entry.dart';
+import '../l10n/app_localizations.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -29,7 +30,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'Settings',
+          AppLocalizations.of(context)!.settings,
           style: TextStyle(
             color: textPrimary,
             fontSize: 18,
@@ -41,20 +42,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
         children: [
+          // === SECTION 0: BAHASA ===
+          _buildSectionTitle(AppLocalizations.of(context)!.language),
+          const SizedBox(height: 12),
+          _buildLanguageSelector(),
+          const SizedBox(height: 32),
+
           // === SECTION 1: DATA ===
-          _buildSectionTitle('Data'),
+          _buildSectionTitle(AppLocalizations.of(context)!.data),
           const SizedBox(height: 12),
           _buildSettingItem(
             icon: Icons.file_download_outlined,
-            title: 'Export Jurnal',
-            subtitle: 'Simpan semua jurnal ke file teks',
+            title: AppLocalizations.of(context)!.exportJournals,
+            subtitle: AppLocalizations.of(context)!.exportJournalsDesc,
             onTap: _exportJournals,
           ),
           const SizedBox(height: 8),
           _buildSettingItem(
             icon: Icons.delete_outline,
-            title: 'Hapus Semua Jurnal',
-            subtitle: 'Hapus permanen semua data jurnal',
+            title: AppLocalizations.of(context)!.deleteAllJournals,
+            subtitle: AppLocalizations.of(context)!.deleteAllJournalsDesc,
             onTap: _confirmDeleteAll,
             isDestructive: true,
           ),
@@ -62,19 +69,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const SizedBox(height: 32),
 
           // === SECTION 2: TENTANG ===
-          _buildSectionTitle('Tentang'),
+          _buildSectionTitle(AppLocalizations.of(context)!.about),
           const SizedBox(height: 12),
           _buildSettingItem(
             icon: Icons.info_outline,
-            title: 'Tentang Aplikasi',
-            subtitle: 'Versi 1.0.0',
+            title: AppLocalizations.of(context)!.aboutApp,
+            subtitle: AppLocalizations.of(context)!.version,
             onTap: _showAboutDialog,
           ),
           const SizedBox(height: 8),
           _buildSettingItem(
             icon: Icons.mail_outline,
-            title: 'Kirim Feedback',
-            subtitle: 'Saran atau laporan bug',
+            title: AppLocalizations.of(context)!.sendFeedback,
+            subtitle: AppLocalizations.of(context)!.feedbackDesc,
             onTap: () {
               HapticFeedback.selectionClick();
               // Nanti bisa diarahkan ke email
@@ -86,7 +93,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           // Footer
           Center(
             child: Text(
-              'Made with ❤️\nMinimal Journal v1.0.0',
+              AppLocalizations.of(context)!.madeWith,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 12,
@@ -100,6 +107,53 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  Widget _buildLanguageSelector() {
+    final settingsBox = Hive.box('settingsBox');
+    final currentLang = settingsBox.get('languageCode', defaultValue: 'en');
+
+    return Container(
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: cardColor,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        children: [
+          Expanded(child: _buildLangOption('en', 'English', currentLang)),
+          const SizedBox(width: 8),
+          Expanded(child: _buildLangOption('id', 'Indonesia', currentLang)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLangOption(String code, String label, String currentLang) {
+    final isSelected = currentLang == code;
+    return GestureDetector(
+      onTap: () async {
+        HapticFeedback.selectionClick();
+        final settingsBox = Hive.box('settingsBox');
+        await settingsBox.put('languageCode', code);
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          color: isSelected ? textPrimary : Colors.transparent,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Center(
+          child: Text(
+            label,
+            style: TextStyle(
+              color: isSelected ? bgColor : textPrimary,
+              fontSize: 14,
+              fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
   // === WIDGET BANTUAN ===
 
   Widget _buildSectionTitle(String title) {
@@ -185,7 +239,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final box = Hive.box<JournalEntry>('journalBox');
 
     if (box.isEmpty) {
-      _showSnackBar('Belum ada jurnal untuk di-export');
+      _showSnackBar(AppLocalizations.of(context)!.nothingToExport);
       return;
     }
 
@@ -213,7 +267,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     // Salin ke clipboard
     Clipboard.setData(ClipboardData(text: buffer.toString()));
 
-    _showSnackBar('Jurnal disalin ke clipboard! Tempel di Notes/Email.');
+    _showSnackBar(AppLocalizations.of(context)!.exportedToClipboard);
   }
 
   // === FUNGSI HAPUS SEMUA ===
@@ -224,31 +278,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
         backgroundColor: cardColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: Text(
-          'Hapus Semua Jurnal?',
+          AppLocalizations.of(context)!.deleteAllTitle,
           style: TextStyle(color: textPrimary, fontWeight: FontWeight.w600),
         ),
         content: Text(
-          'Semua jurnal akan dihapus permanen dan tidak bisa dikembalikan. Yakin?',
+          AppLocalizations.of(context)!.deleteAllDesc,
           style: TextStyle(color: textSecondary, height: 1.5),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Batal', style: TextStyle(color: textSecondary)),
+            child: Text(
+              AppLocalizations.of(context)!.cancel,
+              style: TextStyle(color: textSecondary),
+            ),
           ),
           TextButton(
             onPressed: () async {
               final box = Hive.box<JournalEntry>('journalBox');
               await box.clear();
-              if (mounted) {
-                Navigator.pop(context);
-                HapticFeedback.heavyImpact();
-                _showSnackBar('Semua jurnal berhasil dihapus');
-              }
+              if (!context.mounted) return;
+              Navigator.pop(context);
+              HapticFeedback.heavyImpact();
+              _showSnackBar(AppLocalizations.of(context)!.allJournalsDeleted);
             },
-            child: const Text(
-              'Hapus Semua',
-              style: TextStyle(color: Colors.red),
+            child: Text(
+              AppLocalizations.of(context)!.deleteAll,
+              style: const TextStyle(color: Colors.red),
             ),
           ),
         ],
@@ -264,7 +320,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         backgroundColor: cardColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: Text(
-          'Minimal Journal',
+          AppLocalizations.of(context)!.appName,
           style: TextStyle(color: textPrimary, fontWeight: FontWeight.w600),
         ),
         content: Column(
@@ -272,7 +328,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Versi 1.0.0',
+              AppLocalizations.of(context)!.version,
               style: TextStyle(
                 color: textPrimary,
                 fontSize: 14,
@@ -297,8 +353,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text(
-              'Tutup',
+            child: Text(
+              AppLocalizations.of(context)!.cancel,
               style: TextStyle(color: Color(0xFF0A84FF)),
             ),
           ),

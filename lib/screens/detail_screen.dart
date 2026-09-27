@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../models/journal_entry.dart';
 import 'write_screen.dart';
+import '../l10n/app_localizations.dart';
 
 class DetailScreen extends StatefulWidget {
   final JournalEntry entry;
@@ -17,6 +18,22 @@ class _DetailScreenState extends State<DetailScreen> {
   final Color textPrimary = const Color(0xFFF2F2F7);
   final Color textSecondary = const Color(0xFF8E8E93);
   final Color cardColor = const Color(0xFF1E1E1E);
+
+  String _getLocalizedMood(BuildContext context, String mood) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (mood) {
+      case 'Calm':
+        return l10n.filterCalm;
+      case 'Grateful':
+        return l10n.filterGrateful;
+      case 'Peaceful':
+        return l10n.filterPeaceful;
+      case 'Focused':
+        return l10n.filterFocused;
+      default:
+        return mood;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +77,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Text(
-                                entry.mood,
+                                _getLocalizedMood(context, entry.mood),
                                 style: TextStyle(
                                   color: textSecondary,
                                   fontSize: 11,

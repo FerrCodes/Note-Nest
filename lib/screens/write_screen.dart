@@ -4,6 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import '../models/journal_entry.dart';
 import '../utils/preset_images.dart';
+import '../l10n/app_localizations.dart';
 
 class WriteScreen extends StatefulWidget {
   final JournalEntry? entry;
@@ -64,7 +65,9 @@ class _WriteScreenState extends State<WriteScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          isEditing ? 'Edit Entry' : 'New Entry',
+          isEditing
+              ? AppLocalizations.of(context)!.editEntry
+              : AppLocalizations.of(context)!.newEntry,
           style: TextStyle(
             color: textPrimary,
             fontSize: 18,
@@ -107,13 +110,14 @@ class _WriteScreenState extends State<WriteScreen> {
                 await box.add(newEntry);
               }
 
-              if (mounted) {
-                HapticFeedback.lightImpact();
-                Navigator.pop(context);
-              }
+              if (!context.mounted) return;
+              HapticFeedback.lightImpact();
+              Navigator.pop(context);
             },
             child: Text(
-              isEditing ? 'Update' : 'Save',
+              isEditing
+                  ? AppLocalizations.of(context)!.update
+                  : AppLocalizations.of(context)!.save,
               style: const TextStyle(
                 color: Color(0xFF0A84FF),
                 fontSize: 16,
@@ -132,7 +136,7 @@ class _WriteScreenState extends State<WriteScreen> {
 
             // === PILIHAN GAMBAR ===
             Text(
-              'Pilih gambar',
+              AppLocalizations.of(context)!.selectImage,
               style: TextStyle(
                 fontSize: 14,
                 color: textSecondary,
@@ -200,7 +204,7 @@ class _WriteScreenState extends State<WriteScreen> {
 
             // === MOOD SELECTOR ===
             Text(
-              'How are you feeling?',
+              AppLocalizations.of(context)!.howFeeling,
               style: TextStyle(
                 fontSize: 14,
                 color: textSecondary,
@@ -260,7 +264,7 @@ class _WriteScreenState extends State<WriteScreen> {
                 color: textPrimary,
               ),
               decoration: InputDecoration(
-                hintText: 'Title',
+                hintText: AppLocalizations.of(context)!.titleHint,
                 hintStyle: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
@@ -284,7 +288,7 @@ class _WriteScreenState extends State<WriteScreen> {
                   height: 1.6,
                 ),
                 decoration: InputDecoration(
-                  hintText: 'Start writing your thoughts...',
+                  hintText: AppLocalizations.of(context)!.contentHint,
                   hintStyle: TextStyle(
                     fontSize: 16,
                     color: textSecondary.withValues(alpha: 0.5),
