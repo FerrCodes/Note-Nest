@@ -173,7 +173,7 @@ abstract class AppLocalizations {
   /// No description provided for @noJournalsDesc.
   ///
   /// In en, this message translates to:
-  /// **'Tap the + button to start writing\nyour first moment today.'**
+  /// **'Create a new entry and start writing about your first moment of the day.'**
   String get noJournalsDesc;
 
   /// No description provided for @noResultsTitle.

@@ -47,7 +47,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noJournalsDesc =>
-      'Tap the + button to start writing\nyour first moment today.';
+      'Create a new entry and start writing about your first moment of the day.';
 
   @override
   String get noResultsTitle => 'No results';

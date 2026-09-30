@@ -10,6 +10,7 @@ import 'screens/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
+import 'dart:io';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -374,7 +375,6 @@ class _ReflectScreenState extends State<ReflectScreen> {
 
   Widget _buildJournalList() {
     final box = Hive.box<JournalEntry>('journalBox');
-
     return ValueListenableBuilder(
       valueListenable: box.listenable(),
       builder: (context, Box<JournalEntry> box, _) {
@@ -538,24 +538,30 @@ class _ReflectScreenState extends State<ReflectScreen> {
                   );
                 },
                 onDismissed: (direction) {
-                  // Hapus dari Hive
+                  HapticFeedback.heavyImpact();
                   entry.delete();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
                         AppLocalizations.of(context)!.journalDeleted,
+                        style: const TextStyle(
+                          color: Color(0xFF121212),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                      backgroundColor: cardColor,
+                      backgroundColor: const Color(0xFFF2F2F7), // Putih
                       duration: const Duration(seconds: 2),
                       behavior: SnackBarBehavior.floating,
                       margin: const EdgeInsets.only(
-                        bottom: 120,
+                        bottom: 100,
                         left: 20,
                         right: 20,
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
+                      elevation: 0,
                     ),
                   );
                 },
@@ -593,25 +599,7 @@ class _ReflectScreenState extends State<ReflectScreen> {
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(24),
               ),
-              child: Image.network(
-                entry.imageUrl,
-                height: 160,
-                width: double.infinity,
-                fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Container(
-                    height: 160,
-                    color: cardColor,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        color: textSecondary,
-                      ),
-                    ),
-                  );
-                },
-              ),
+              child: _buildImage(entry.imageUrl, height: 160),
             ),
             Padding(
               padding: const EdgeInsets.all(20),
@@ -732,5 +720,40 @@ class _ReflectScreenState extends State<ReflectScreen> {
         ),
       ),
     );
+  }
+
+  Widget _buildImage(
+    String imagePath, {
+    double? height,
+    BoxFit fit = BoxFit.cover,
+  }) {
+    if (imagePath.startsWith('http')) {
+      return Image.network(
+        imagePath,
+        height: height,
+        width: double.infinity,
+        fit: fit,
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return Container(
+            height: height,
+            color: cardColor,
+            child: Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: textSecondary,
+              ),
+            ),
+          );
+        },
+      );
+    } else {
+      return Image.file(
+        File(imagePath),
+        height: height,
+        width: double.infinity,
+        fit: fit,
+      );
+    }
   }
 }

@@ -428,12 +428,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message),
-        backgroundColor: cardColor,
+        content: Text(
+          message,
+          style: const TextStyle(
+            color: Color(0xFF121212),
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        backgroundColor: const Color(0xFFF2F2F7), // Putih
         behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+        margin: const EdgeInsets.only(bottom: 100, left: 20, right: 20),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         duration: const Duration(seconds: 2),
+        elevation: 0,
       ),
     );
   }

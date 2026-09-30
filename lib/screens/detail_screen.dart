@@ -4,6 +4,7 @@ import '../models/journal_entry.dart';
 import 'write_screen.dart';
 import '../l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
+import 'dart:io';
 
 class DetailScreen extends StatefulWidget {
   final JournalEntry entry;
@@ -198,12 +199,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(24),
-                      child: Image.network(
-                        entry.imageUrl,
-                        height: 300,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ),
+                      child: _buildImage(entry.imageUrl, height: 300),
                     ),
                   ),
 
@@ -380,5 +376,40 @@ class _DetailScreenState extends State<DetailScreen> {
             : Icon(icon, color: textPrimary, size: 20),
       ),
     );
+  }
+
+  Widget _buildImage(
+    String imagePath, {
+    double? height,
+    BoxFit fit = BoxFit.cover,
+  }) {
+    if (imagePath.startsWith('http')) {
+      return Image.network(
+        imagePath,
+        height: height,
+        width: double.infinity,
+        fit: fit,
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return Container(
+            height: height,
+            color: cardColor,
+            child: Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: textSecondary,
+              ),
+            ),
+          );
+        },
+      );
+    } else {
+      return Image.file(
+        File(imagePath),
+        height: height,
+        width: double.infinity,
+        fit: fit,
+      );
+    }
   }
 }

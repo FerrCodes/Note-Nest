@@ -47,7 +47,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get noJournalsDesc =>
-      'Tekan tombol + untuk mulai menulis\nmomen pertamamu hari ini.';
+      'Buat baru dan mulai menulis\nmomen pertamamu hari ini.';
 
   @override
   String get noResultsTitle => 'Tidak ada hasil';
