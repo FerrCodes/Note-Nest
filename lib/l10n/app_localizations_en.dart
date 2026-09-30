@@ -291,7 +291,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gotIt => 'Got it';
 
   @override
-  String get reminder => 'Reminder';
+  String get reminder => 'Notification';
 
   @override
   String get dailyReminder => 'Daily Reminder';
@@ -323,6 +323,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reminderSaved => 'Reminder saved successfully!';
+
+  @override
+  String get languageDesc =>
+      'Choose the language you\'re most comfortable with. You can change it anytime.';
+
+  @override
+  String get calendarTitle => 'Calendar';
 
   @override
   String readingTime(int count) {

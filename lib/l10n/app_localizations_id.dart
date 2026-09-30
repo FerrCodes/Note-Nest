@@ -292,7 +292,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get gotIt => 'Mengerti';
 
   @override
-  String get reminder => 'Pengingat';
+  String get reminder => 'Notifikasi';
 
   @override
   String get dailyReminder => 'Pengingat Harian';
@@ -324,6 +324,13 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get reminderSaved => 'Pengingat berhasil disimpan!';
+
+  @override
+  String get languageDesc =>
+      'Pilih bahasa yang paling nyaman untukmu. Kamu bisa mengubahnya kapan saja.';
+
+  @override
+  String get calendarTitle => 'Kalender';
 
   @override
   String readingTime(int count) {

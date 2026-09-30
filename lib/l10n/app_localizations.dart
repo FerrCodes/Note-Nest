@@ -641,7 +641,7 @@ abstract class AppLocalizations {
   /// No description provided for @reminder.
   ///
   /// In en, this message translates to:
-  /// **'Reminder'**
+  /// **'Notification'**
   String get reminder;
 
   /// No description provided for @dailyReminder.
@@ -703,6 +703,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reminder saved successfully!'**
   String get reminderSaved;
+
+  /// No description provided for @languageDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the language you\'re most comfortable with. You can change it anytime.'**
+  String get languageDesc;
+
+  /// No description provided for @calendarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar'**
+  String get calendarTitle;
 
   /// No description provided for @readingTime.
   ///

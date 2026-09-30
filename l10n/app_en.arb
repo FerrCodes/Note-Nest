@@ -90,7 +90,7 @@
   "photoTipsTitle": "Tips for Choosing Photo Aspect Ratios",
   "photoTipsDesc": "For best results in the detail view, use landscape (wide) or square photos. Portrait photos may be cropped.",
   "gotIt": "Got it",
-  "reminder": "Reminder",
+  "reminder": "Notification",
   "dailyReminder": "Daily Reminder",
   "dailyReminderDesc": "Get notified to write your journal",
   "reminderTime": "Reminder Time",
@@ -101,6 +101,8 @@
   "notificationSent": "Test notification sent!",
   "permissionDenied": "Notification permission denied. Please enable in Settings.",
   "reminderSaved": "Reminder saved successfully!",
+    "languageDesc": "Choose the language you're most comfortable with. You can change it anytime.",
+      "calendarTitle": "Calendar",
   "@journalsWithMood": {
     "placeholders": {
       "count": {

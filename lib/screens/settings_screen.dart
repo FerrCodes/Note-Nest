@@ -239,19 +239,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final settingsBox = Hive.box('settingsBox');
     final currentLang = settingsBox.get('languageCode', defaultValue: 'en');
 
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: cardColor,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        children: [
-          Expanded(child: _buildLangOption('en', 'English', currentLang)),
-          const SizedBox(width: 8),
-          Expanded(child: _buildLangOption('id', 'Indonesia', currentLang)),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Toggle bahasa
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Row(
+            children: [
+              Expanded(child: _buildLangOption('en', 'English', currentLang)),
+              const SizedBox(width: 8),
+              Expanded(child: _buildLangOption('id', 'Indonesia', currentLang)),
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
+        // Deskripsi
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: Text(
+            AppLocalizations.of(context)!.languageDesc,
+            style: TextStyle(fontSize: 12, color: textSecondary, height: 1.5),
+          ),
+        ),
+      ],
     );
   }
 

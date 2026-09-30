@@ -90,7 +90,7 @@
   "photoTipsTitle": "Tips Memilih Rasio Format Foto",
   "photoTipsDesc": "Untuk hasil terbaik di halaman detail, gunakan foto landscape (lebar) atau persegi. Foto portrait (tinggi) mungkin akan terpotong.",
   "gotIt": "Mengerti",
-  "reminder": "Pengingat",
+  "reminder": "Notifikasi",
   "dailyReminder": "Pengingat Harian",
   "dailyReminderDesc": "Dapatkan notifikasi untuk menulis jurnal",
   "reminderTime": "Jam Pengingat",
@@ -101,6 +101,8 @@
   "notificationSent": "Notifikasi tes terkirim!",
   "permissionDenied": "Izin notifikasi ditolak. Aktifkan di Pengaturan HP.",
   "reminderSaved": "Pengingat berhasil disimpan!",
+    "languageDesc": "Pilih bahasa yang paling nyaman untukmu. Kamu bisa mengubahnya kapan saja.",
+      "calendarTitle": "Kalender",
   "@journalsWithMood": {
     "placeholders": {
       "count": {

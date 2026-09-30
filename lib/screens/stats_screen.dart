@@ -206,6 +206,67 @@ class _StatsScreenState extends State<StatsScreen> {
                       ),
                       const SizedBox(height: 32),
 
+                      // === MOOD TERBANYAK ===
+                      Text(
+                        AppLocalizations.of(context)!.topMood,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: textPrimary,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: cardColor,
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(14),
+                              decoration: BoxDecoration(
+                                color: textPrimary.withValues(alpha: 0.1),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                _moods.firstWhere(
+                                  (m) => m['label'] == topMood,
+                                )['icon'],
+                                color: textPrimary,
+                                size: 28,
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  topMood,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                    color: textPrimary,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.journalsWithMood(topCount),
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: textSecondary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 40),
+
                       // === KALENDER MINI ===
                       Text(
                         AppLocalizations.of(context)!.thisMonth,
@@ -334,67 +395,6 @@ class _StatsScreenState extends State<StatsScreen> {
                         ),
                       ),
                       const SizedBox(height: 32),
-
-                      // === MOOD TERBANYAK ===
-                      Text(
-                        AppLocalizations.of(context)!.topMood,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: textPrimary,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      Container(
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          color: cardColor,
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        child: Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(14),
-                              decoration: BoxDecoration(
-                                color: textPrimary.withValues(alpha: 0.1),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                _moods.firstWhere(
-                                  (m) => m['label'] == topMood,
-                                )['icon'],
-                                color: textPrimary,
-                                size: 28,
-                              ),
-                            ),
-                            const SizedBox(width: 16),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  topMood,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700,
-                                    color: textPrimary,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  AppLocalizations.of(
-                                    context,
-                                  )!.journalsWithMood(topCount),
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    color: textSecondary,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 40),
                     ],
                   ),
                 );
@@ -543,8 +543,23 @@ class _StatsScreenState extends State<StatsScreen> {
 
     final dayLabelsOrdered = ['S', 'S', 'R', 'K', 'J', 'S', 'M'];
 
+    // Nama bulan ini (contoh: "September 2026")
+    final monthName = DateFormat('MMMM yyyy', 'id_ID').format(now);
+
     return Column(
       children: [
+        // Judul bulan
+        Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: Text(
+            monthName,
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+              color: textPrimary,
+            ),
+          ),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: dayLabelsOrdered.map((day) {
