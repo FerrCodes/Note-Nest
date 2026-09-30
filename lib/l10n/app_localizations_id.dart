@@ -253,6 +253,46 @@ class AppLocalizationsId extends AppLocalizations {
   String get journalDetail => 'Detail Jurnal';
 
   @override
+  String get uploadFromGallery => 'Unggah dari galeri';
+
+  @override
+  String get chooseFromGallery => 'Pilih dari galeri';
+
+  @override
+  String get changePhoto => 'Ganti foto';
+
+  @override
+  String get tapToChoose => 'Tap untuk memilih foto dari HP';
+
+  @override
+  String get tapToChange => 'Tap untuk mengganti foto';
+
+  @override
+  String get uploadPhoto => 'Unggah foto';
+
+  @override
+  String get galleryOption => 'Galeri';
+
+  @override
+  String get galleryOptionDesc => 'Pilih foto yang ada';
+
+  @override
+  String get cameraOption => 'Kamera';
+
+  @override
+  String get cameraOptionDesc => 'Ambil foto langsung';
+
+  @override
+  String get photoTipsTitle => 'Tips Memilih Rasio Format Foto';
+
+  @override
+  String get photoTipsDesc =>
+      'Untuk hasil terbaik di halaman detail, gunakan foto landscape (lebar) atau persegi. Foto portrait (tinggi) mungkin akan terpotong.';
+
+  @override
+  String get gotIt => 'Mengerti';
+
+  @override
   String readingTime(int count) {
     return '$count menit baca';
   }

@@ -77,6 +77,19 @@
   "nothingToExport": "Belum ada jurnal untuk di-export",
   "journalsWithMood": "{count} jurnal dengan mood ini",
     "journalDetail": "Detail Jurnal",
+      "uploadFromGallery": "Unggah dari galeri",
+  "chooseFromGallery": "Pilih dari galeri",
+  "changePhoto": "Ganti foto",
+  "tapToChoose": "Tap untuk memilih foto dari HP",
+  "tapToChange": "Tap untuk mengganti foto",
+    "uploadPhoto": "Unggah foto",
+  "galleryOption": "Galeri",
+  "galleryOptionDesc": "Pilih foto yang ada",
+  "cameraOption": "Kamera",
+  "cameraOptionDesc": "Ambil foto langsung",
+    "photoTipsTitle": "Tips Memilih Rasio Format Foto",
+  "photoTipsDesc": "Untuk hasil terbaik di halaman detail, gunakan foto landscape (lebar) atau persegi. Foto portrait (tinggi) mungkin akan terpotong.",
+  "gotIt": "Mengerti",
   "@journalsWithMood": {
     "placeholders": {
       "count": {

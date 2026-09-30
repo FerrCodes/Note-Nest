@@ -3,7 +3,7 @@ class PresetImages {
     {
       'name': 'Forest',
       'url':
-          'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?q=80&w=800&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1790122387967-ffecd6ab8e8e?q=80&w=436&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     },
     {
       'name': 'Ocean',
@@ -23,7 +23,7 @@ class PresetImages {
     {
       'name': 'Flowers',
       'url':
-          'https://images.unsplash.com/photo-1490750967868-88aa4486c946?q=80&w=800&auto=format&fit=crop',
+          'https://plus.unsplash.com/premium_photo-1751442185613-030272e824e0?q=80&w=1055&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     },
     {
       'name': 'Abstract',
@@ -33,12 +33,12 @@ class PresetImages {
     {
       'name': 'Night',
       'url':
-          'https://images.unsplash.com/photo-1532978379173-523e16f371f9?q=80&w=800&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1782226768510-16de87e9166f?q=80&w=415&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     },
     {
       'name': 'Desert',
       'url':
-          'https://images.unsplash.com/photo-1509316785289-025f5b846b35?q=80&w=800&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1734605013460-45663eec2358?q=80&w=385&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     },
   ];
 

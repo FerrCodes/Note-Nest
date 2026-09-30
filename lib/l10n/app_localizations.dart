@@ -560,6 +560,84 @@ abstract class AppLocalizations {
   /// **'Journal Detail'**
   String get journalDetail;
 
+  /// No description provided for @uploadFromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload from gallery'**
+  String get uploadFromGallery;
+
+  /// No description provided for @chooseFromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from gallery'**
+  String get chooseFromGallery;
+
+  /// No description provided for @changePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Change photo'**
+  String get changePhoto;
+
+  /// No description provided for @tapToChoose.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to choose photo from your phone'**
+  String get tapToChoose;
+
+  /// No description provided for @tapToChange.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to change photo'**
+  String get tapToChange;
+
+  /// No description provided for @uploadPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload photo'**
+  String get uploadPhoto;
+
+  /// No description provided for @galleryOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get galleryOption;
+
+  /// No description provided for @galleryOptionDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose existing photo'**
+  String get galleryOptionDesc;
+
+  /// No description provided for @cameraOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get cameraOption;
+
+  /// No description provided for @cameraOptionDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Take photo directly'**
+  String get cameraOptionDesc;
+
+  /// No description provided for @photoTipsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tips for Choosing Photo Aspect Ratios'**
+  String get photoTipsTitle;
+
+  /// No description provided for @photoTipsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'For best results in the detail view, use landscape (wide) or square photos. Portrait photos may be cropped.'**
+  String get photoTipsDesc;
+
+  /// No description provided for @gotIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get gotIt;
+
   /// No description provided for @readingTime.
   ///
   /// In en, this message translates to:

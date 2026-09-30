@@ -253,6 +253,46 @@ class AppLocalizationsEn extends AppLocalizations {
   String get journalDetail => 'Journal Detail';
 
   @override
+  String get uploadFromGallery => 'Upload from gallery';
+
+  @override
+  String get chooseFromGallery => 'Choose from gallery';
+
+  @override
+  String get changePhoto => 'Change photo';
+
+  @override
+  String get tapToChoose => 'Tap to choose photo from your phone';
+
+  @override
+  String get tapToChange => 'Tap to change photo';
+
+  @override
+  String get uploadPhoto => 'Upload photo';
+
+  @override
+  String get galleryOption => 'Gallery';
+
+  @override
+  String get galleryOptionDesc => 'Choose existing photo';
+
+  @override
+  String get cameraOption => 'Camera';
+
+  @override
+  String get cameraOptionDesc => 'Take photo directly';
+
+  @override
+  String get photoTipsTitle => 'Tips for Choosing Photo Aspect Ratios';
+
+  @override
+  String get photoTipsDesc =>
+      'For best results in the detail view, use landscape (wide) or square photos. Portrait photos may be cropped.';
+
+  @override
+  String get gotIt => 'Got it';
+
+  @override
   String readingTime(int count) {
     return '$count min read';
   }

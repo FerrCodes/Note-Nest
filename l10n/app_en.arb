@@ -77,6 +77,19 @@
   "nothingToExport": "No journals to export yet",
   "journalsWithMood": "{count} journals with this mood",
     "journalDetail": "Journal Detail",
+      "uploadFromGallery": "Upload from gallery",
+  "chooseFromGallery": "Choose from gallery",
+  "changePhoto": "Change photo",
+  "tapToChoose": "Tap to choose photo from your phone",
+  "tapToChange": "Tap to change photo",
+    "uploadPhoto": "Upload photo",
+  "galleryOption": "Gallery",
+  "galleryOptionDesc": "Choose existing photo",
+  "cameraOption": "Camera",
+  "cameraOptionDesc": "Take photo directly",
+    "photoTipsTitle": "Tips for Choosing Photo Aspect Ratios",
+  "photoTipsDesc": "For best results in the detail view, use landscape (wide) or square photos. Portrait photos may be cropped.",
+  "gotIt": "Got it",
   "@journalsWithMood": {
     "placeholders": {
       "count": {
