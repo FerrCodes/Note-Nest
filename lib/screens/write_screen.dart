@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import '../models/journal_entry.dart';
 import '../utils/preset_images.dart';
 import '../l10n/app_localizations.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class WriteScreen extends StatefulWidget {
   final JournalEntry? entry;
@@ -67,6 +69,37 @@ class _WriteScreenState extends State<WriteScreen> {
     super.dispose();
   }
 
+  Future<void> _pickImageFromGallery() async {
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? pickedFile = await picker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 80,
+      );
+
+      if (pickedFile != null) {
+        HapticFeedback.mediumImpact();
+        setState(() {
+          _selectedImage = pickedFile.path;
+        });
+      }
+    } catch (e) {
+      HapticFeedback.heavyImpact();
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Gagal memilih gambar'),
+          backgroundColor: const Color(0xFF1E1E1E),
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.only(top: 90, left: 20, right: 20),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final isEditing = widget.entry != null;
@@ -97,10 +130,76 @@ class _WriteScreenState extends State<WriteScreen> {
                       height: 80,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
-                        itemCount: PresetImages.images.length,
+                        itemCount: PresetImages.images.length + 1,
                         separatorBuilder: (_, _) => const SizedBox(width: 10),
                         itemBuilder: (context, index) {
-                          final img = PresetImages.images[index];
+                          // Tombol Galeri (paling kiri)
+                          if (index == 0) {
+                            final isGallerySelected = !_selectedImage
+                                .startsWith('http');
+                            return GestureDetector(
+                              onTap: _pickImageFromGallery,
+                              child: Container(
+                                width: 80,
+                                decoration: BoxDecoration(
+                                  color: cardColor,
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(
+                                    color: isGallerySelected
+                                        ? textPrimary
+                                        : Colors.transparent,
+                                    width: 3,
+                                  ),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(13),
+                                  child: isGallerySelected
+                                      ? Stack(
+                                          fit: StackFit.expand,
+                                          children: [
+                                            Image.file(
+                                              File(_selectedImage),
+                                              fit: BoxFit.cover,
+                                            ),
+                                            Container(
+                                              color: Colors.black.withValues(
+                                                alpha: 0.3,
+                                              ),
+                                              child: const Icon(
+                                                Icons.check_circle,
+                                                color: Colors.white,
+                                                size: 24,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons
+                                                  .add_photo_alternate_outlined,
+                                              color: textPrimary,
+                                              size: 24,
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              'Galeri',
+                                              style: TextStyle(
+                                                color: textSecondary,
+                                                fontSize: 10,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                ),
+                              ),
+                            );
+                          }
+
+                          // Preset image
+                          final img = PresetImages.images[index - 1];
                           final isSelected = _selectedImage == img['url'];
                           return GestureDetector(
                             onTap: () {
