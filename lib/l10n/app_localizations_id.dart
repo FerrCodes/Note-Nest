@@ -76,10 +76,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get delete => 'Hapus';
 
   @override
-  String get deleteAllTitle => 'Hapus Semua Jurnal?';
+  String get deleteAllTitle => 'Ingin Hapus Semua Jurnal?';
 
   @override
-  String get deleteAllDesc => 'Semua jurnal akan dihapus permanen. Yakin?';
+  String get deleteAllDesc => 'Semua jurnal akan dihapus permanen.';
 
   @override
   String get deleteAll => 'Hapus Semua';
@@ -238,8 +238,7 @@ class AppLocalizationsId extends AppLocalizations {
       'Statistik sederhana membantumu memahami diri sendiri lebih dalam.';
 
   @override
-  String get exportedToClipboard =>
-      'Jurnal disalin ke clipboard! Tempel di Notes/Email.';
+  String get exportedSuccessfully => 'Jurnal berhasil di-export!';
 
   @override
   String get nothingToExport => 'Belum ada jurnal untuk di-export';

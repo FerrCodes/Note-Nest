@@ -227,13 +227,13 @@ abstract class AppLocalizations {
   /// No description provided for @deleteAllTitle.
   ///
   /// In en, this message translates to:
-  /// **'Delete All Journals?'**
+  /// **'Want to Delete All Journals?'**
   String get deleteAllTitle;
 
   /// No description provided for @deleteAllDesc.
   ///
   /// In en, this message translates to:
-  /// **'All journals will be permanently deleted. Are you sure?'**
+  /// **'All journals will be permanently deleted.'**
   String get deleteAllDesc;
 
   /// No description provided for @deleteAll.
@@ -536,11 +536,11 @@ abstract class AppLocalizations {
   /// **'Simple statistics help you understand yourself better.'**
   String get onboarding3Desc;
 
-  /// No description provided for @exportedToClipboard.
+  /// No description provided for @exportedSuccessfully.
   ///
   /// In en, this message translates to:
-  /// **'Journals copied to clipboard! Paste in Notes/Email.'**
-  String get exportedToClipboard;
+  /// **'Journals exported successfully!'**
+  String get exportedSuccessfully;
 
   /// No description provided for @nothingToExport.
   ///

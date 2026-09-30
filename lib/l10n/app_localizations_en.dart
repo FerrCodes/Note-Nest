@@ -76,11 +76,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get delete => 'Delete';
 
   @override
-  String get deleteAllTitle => 'Delete All Journals?';
+  String get deleteAllTitle => 'Want to Delete All Journals?';
 
   @override
-  String get deleteAllDesc =>
-      'All journals will be permanently deleted. Are you sure?';
+  String get deleteAllDesc => 'All journals will be permanently deleted.';
 
   @override
   String get deleteAll => 'Delete All';
@@ -238,8 +237,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Simple statistics help you understand yourself better.';
 
   @override
-  String get exportedToClipboard =>
-      'Journals copied to clipboard! Paste in Notes/Email.';
+  String get exportedSuccessfully => 'Journals exported successfully!';
 
   @override
   String get nothingToExport => 'No journals to export yet';

@@ -4,6 +4,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import '../models/journal_entry.dart';
 import '../l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -69,9 +73,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   icon: Icons.mail_outline,
                   title: AppLocalizations.of(context)!.sendFeedback,
                   subtitle: AppLocalizations.of(context)!.feedbackDesc,
-                  onTap: () {
+                  onTap: () async {
                     HapticFeedback.selectionClick();
-                    // Nanti bisa diarahkan ke email
+
+                    final Uri emailUri = Uri(
+                      scheme: 'mailto',
+                      path: 'ferdiantoferi1303@gmail.com',
+                      query: Uri.encodeFull(
+                        'subject=NoteNest Feedback&body=Halo, saya ingin memberi feedback tentang NoteNest:%0A%0A',
+                      ),
+                    );
+
+                    try {
+                      await launchUrl(emailUri);
+                    } catch (e) {
+                      if (!context.mounted) return;
+                      _showSnackBar('Tidak ada aplikasi email terinstall');
+                    }
                   },
                 ),
 
@@ -298,7 +316,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   // === FUNGSI EXPORT ===
-  void _exportJournals() {
+  Future<void> _exportJournals() async {
     final box = Hive.box<JournalEntry>('journalBox');
 
     if (box.isEmpty) {
@@ -326,9 +344,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
       buffer.writeln('\n');
     }
 
-    Clipboard.setData(ClipboardData(text: buffer.toString()));
+    try {
+      // Simpan ke file sementara
+      final directory = await getTemporaryDirectory();
+      final timestamp = DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
+      final file = File('${directory.path}/NoteNest_$timestamp.txt');
+      await file.writeAsString(buffer.toString());
 
-    _showSnackBar(AppLocalizations.of(context)!.exportedToClipboard);
+      // Buka dialog share
+      if (!mounted) return;
+      await Share.shareXFiles(
+        [XFile(file.path, mimeType: 'text/plain')],
+        subject: 'NoteNest Export',
+        text: 'Berikut adalah export jurnal dari NoteNest.',
+      );
+    } catch (e) {
+      if (!mounted) return;
+      _showSnackBar('Gagal export jurnal: $e');
+    }
   }
 
   // === FUNGSI HAPUS SEMUA ===
