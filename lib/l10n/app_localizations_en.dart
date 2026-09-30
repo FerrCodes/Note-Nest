@@ -291,6 +291,40 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gotIt => 'Got it';
 
   @override
+  String get reminder => 'Reminder';
+
+  @override
+  String get dailyReminder => 'Daily Reminder';
+
+  @override
+  String get dailyReminderDesc => 'Get notified to write your journal';
+
+  @override
+  String get reminderTime => 'Reminder Time';
+
+  @override
+  String get reminderMessage => 'Reminder Message';
+
+  @override
+  String get reminderMessageHint => 'Write your custom reminder message...';
+
+  @override
+  String get testNotification => 'Test Notification';
+
+  @override
+  String get testNotificationDesc => 'Send a test notification now';
+
+  @override
+  String get notificationSent => 'Test notification sent!';
+
+  @override
+  String get permissionDenied =>
+      'Notification permission denied. Please enable in Settings.';
+
+  @override
+  String get reminderSaved => 'Reminder saved successfully!';
+
+  @override
   String readingTime(int count) {
     return '$count min read';
   }

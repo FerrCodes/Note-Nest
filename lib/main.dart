@@ -11,6 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
+import 'services/notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,9 @@ void main() async {
   Hive.registerAdapter(JournalEntryAdapter());
   // Buka "box" untuk menyimpan data
   await Hive.openBox<JournalEntry>('journalBox');
-  await Hive.openBox('settingsBox'); // <-- TAMBAHKAN INI
+  await Hive.openBox('settingsBox');
+  // Inisialisasi Notification Service
+  await NotificationService().initialize();
   // Set status bar untuk dark mode (ikon putih)
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(

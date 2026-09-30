@@ -638,6 +638,72 @@ abstract class AppLocalizations {
   /// **'Got it'**
   String get gotIt;
 
+  /// No description provided for @reminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder'**
+  String get reminder;
+
+  /// No description provided for @dailyReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Reminder'**
+  String get dailyReminder;
+
+  /// No description provided for @dailyReminderDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Get notified to write your journal'**
+  String get dailyReminderDesc;
+
+  /// No description provided for @reminderTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder Time'**
+  String get reminderTime;
+
+  /// No description provided for @reminderMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder Message'**
+  String get reminderMessage;
+
+  /// No description provided for @reminderMessageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your custom reminder message...'**
+  String get reminderMessageHint;
+
+  /// No description provided for @testNotification.
+  ///
+  /// In en, this message translates to:
+  /// **'Test Notification'**
+  String get testNotification;
+
+  /// No description provided for @testNotificationDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Send a test notification now'**
+  String get testNotificationDesc;
+
+  /// No description provided for @notificationSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Test notification sent!'**
+  String get notificationSent;
+
+  /// No description provided for @permissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification permission denied. Please enable in Settings.'**
+  String get permissionDenied;
+
+  /// No description provided for @reminderSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder saved successfully!'**
+  String get reminderSaved;
+
   /// No description provided for @readingTime.
   ///
   /// In en, this message translates to:

@@ -292,6 +292,40 @@ class AppLocalizationsId extends AppLocalizations {
   String get gotIt => 'Mengerti';
 
   @override
+  String get reminder => 'Pengingat';
+
+  @override
+  String get dailyReminder => 'Pengingat Harian';
+
+  @override
+  String get dailyReminderDesc => 'Dapatkan notifikasi untuk menulis jurnal';
+
+  @override
+  String get reminderTime => 'Jam Pengingat';
+
+  @override
+  String get reminderMessage => 'Pesan Pengingat';
+
+  @override
+  String get reminderMessageHint => 'Tulis pesan pengingatmu...';
+
+  @override
+  String get testNotification => 'Tes Notifikasi';
+
+  @override
+  String get testNotificationDesc => 'Kirim notifikasi tes sekarang';
+
+  @override
+  String get notificationSent => 'Notifikasi tes terkirim!';
+
+  @override
+  String get permissionDenied =>
+      'Izin notifikasi ditolak. Aktifkan di Pengaturan HP.';
+
+  @override
+  String get reminderSaved => 'Pengingat berhasil disimpan!';
+
+  @override
   String readingTime(int count) {
     return '$count menit baca';
   }

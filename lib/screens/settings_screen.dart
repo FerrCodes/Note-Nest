@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
+import '../services/notification_service.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -21,6 +22,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final Color cardColor = const Color(0xFF1E1E1E);
   final Color textPrimary = const Color(0xFFF2F2F7);
   final Color textSecondary = const Color(0xFF8E8E93);
+  // State Reminder
+  bool _reminderEnabled = false;
+  TimeOfDay _reminderTime = const TimeOfDay(hour: 20, minute: 0);
+  final TextEditingController _reminderMessageController =
+      TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    _loadReminderSettings();
+  }
+
+  Future<void> _loadReminderSettings() async {
+    final settingsBox = Hive.box('settingsBox');
+    final enabled = settingsBox.get('reminderEnabled', defaultValue: false);
+    final hour = settingsBox.get('reminderHour', defaultValue: 20);
+    final minute = settingsBox.get('reminderMinute', defaultValue: 0);
+    final message = settingsBox.get(
+      'reminderMessage',
+      defaultValue: 'Waktunya menulis jurnal hari ini!',
+    );
+
+    setState(() {
+      _reminderEnabled = enabled;
+      _reminderTime = TimeOfDay(hour: hour, minute: minute);
+      _reminderMessageController.text = message;
+    });
+  }
+
+  @override
+  void dispose() {
+    _reminderMessageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +67,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ListView(
               padding: const EdgeInsets.fromLTRB(24, 80, 24, 24),
               children: [
-                // === SECTION 0: BAHASA ===
+                // === SECTION REMINDER ===
+                _buildSectionTitle(AppLocalizations.of(context)!.reminder),
+                const SizedBox(height: 12),
+                _buildReminderToggle(),
+                if (_reminderEnabled) ...[
+                  const SizedBox(height: 8),
+                  _buildReminderTime(),
+                  const SizedBox(height: 8),
+                  _buildReminderMessage(),
+                  const SizedBox(height: 8),
+                  _buildTestNotification(),
+                ],
+                const SizedBox(height: 32),
+                // === SECTION BAHASA ===
                 _buildSectionTitle(AppLocalizations.of(context)!.language),
                 const SizedBox(height: 12),
                 _buildLanguageSelector(),
                 const SizedBox(height: 32),
 
-                // === SECTION 1: DATA ===
+                // === SECTION DATA ===
                 _buildSectionTitle(AppLocalizations.of(context)!.data),
                 const SizedBox(height: 12),
                 _buildSettingItem(
@@ -59,7 +106,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                 const SizedBox(height: 32),
 
-                // === SECTION 2: TENTANG ===
+                // === SECTION TENTANG ===
                 _buildSectionTitle(AppLocalizations.of(context)!.about),
                 const SizedBox(height: 12),
                 _buildSettingItem(
@@ -353,10 +400,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
       // Buka dialog share
       if (!mounted) return;
-      await Share.shareXFiles(
-        [XFile(file.path, mimeType: 'text/plain')],
-        subject: 'NoteNest Export',
-        text: 'Berikut adalah export jurnal dari NoteNest.',
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [XFile(file.path, mimeType: 'text/plain')],
+          subject: 'NoteNest Export',
+          text: 'Berikut adalah export jurnal dari NoteNest.',
+        ),
       );
     } catch (e) {
       if (!mounted) return;
@@ -453,6 +502,335 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  // === REMINDER: TOGGLE ===
+  Widget _buildReminderToggle() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: cardColor,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: textPrimary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(
+              Icons.notifications_outlined,
+              color: textPrimary,
+              size: 20,
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.dailyReminder,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  AppLocalizations.of(context)!.dailyReminderDesc,
+                  style: TextStyle(fontSize: 12, color: textSecondary),
+                ),
+              ],
+            ),
+          ),
+          Switch(
+            value: _reminderEnabled,
+            onChanged: (value) async {
+              HapticFeedback.selectionClick();
+              await _toggleReminder(value);
+            },
+            activeThumbColor: const Color(0xFF0A84FF),
+            activeTrackColor: const Color(0xFF0A84FF).withValues(alpha: 0.5),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // === REMINDER: LOGIKA TOGGLE ===
+  Future<void> _toggleReminder(bool value) async {
+    final service = NotificationService();
+
+    if (value) {
+      // Minta izin
+      final granted = await service.requestPermission();
+      if (!granted) {
+        if (!mounted) return;
+        _showSnackBar(AppLocalizations.of(context)!.permissionDenied);
+        return;
+      }
+    }
+
+    setState(() {
+      _reminderEnabled = value;
+    });
+
+    final settingsBox = Hive.box('settingsBox');
+    await settingsBox.put('reminderEnabled', value);
+
+    if (value) {
+      await service.scheduleDailyReminder(
+        hour: _reminderTime.hour,
+        minute: _reminderTime.minute,
+        message: _reminderMessageController.text.isEmpty
+            ? 'Waktunya menulis jurnal hari ini!'
+            : _reminderMessageController.text,
+      );
+    } else {
+      await service.cancelDailyReminder();
+    }
+
+    if (!mounted) return;
+    _showSnackBar(AppLocalizations.of(context)!.reminderSaved);
+  }
+
+  // === REMINDER: TIME PICKER ===
+  Widget _buildReminderTime() {
+    return GestureDetector(
+      onTap: () async {
+        HapticFeedback.selectionClick();
+        final TimeOfDay? picked = await showTimePicker(
+          context: context,
+          initialTime: _reminderTime,
+          builder: (context, child) {
+            return Theme(
+              data: Theme.of(context).copyWith(
+                timePickerTheme: TimePickerThemeData(
+                  backgroundColor: cardColor,
+                  hourMinuteColor: textPrimary.withValues(alpha: 0.1),
+                  hourMinuteTextColor: textPrimary,
+                  dialBackgroundColor: bgColor,
+                  dialHandColor: textPrimary,
+                  dialTextColor: textSecondary,
+                  entryModeIconColor: textPrimary,
+                ),
+              ),
+              child: child!,
+            );
+          },
+        );
+
+        if (picked != null) {
+          setState(() {
+            _reminderTime = picked;
+          });
+
+          final settingsBox = Hive.box('settingsBox');
+          await settingsBox.put('reminderHour', picked.hour);
+          await settingsBox.put('reminderMinute', picked.minute);
+
+          // Re-schedule reminder
+          if (_reminderEnabled) {
+            await NotificationService().scheduleDailyReminder(
+              hour: picked.hour,
+              minute: picked.minute,
+              message: _reminderMessageController.text.isEmpty
+                  ? 'Waktunya menulis jurnal hari ini!'
+                  : _reminderMessageController.text,
+            );
+          }
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: cardColor,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: textPrimary.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(Icons.access_time, color: textPrimary, size: 20),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                AppLocalizations.of(context)!.reminderTime,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: textPrimary,
+                ),
+              ),
+            ),
+            Text(
+              '${_reminderTime.hour.toString().padLeft(2, '0')}:${_reminderTime.minute.toString().padLeft(2, '0')}',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: const Color(0xFF0A84FF),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Icon(
+              Icons.arrow_forward_ios,
+              size: 14,
+              color: textSecondary.withValues(alpha: 0.5),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // === REMINDER: MESSAGE INPUT ===
+  Widget _buildReminderMessage() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: cardColor,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: textPrimary.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  Icons.message_outlined,
+                  color: textPrimary,
+                  size: 20,
+                ),
+              ),
+              const SizedBox(width: 16),
+              Text(
+                AppLocalizations.of(context)!.reminderMessage,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: textPrimary,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          TextField(
+            controller: _reminderMessageController,
+            style: TextStyle(color: textPrimary, fontSize: 14),
+            maxLines: 2,
+            decoration: InputDecoration(
+              hintText: AppLocalizations.of(context)!.reminderMessageHint,
+              hintStyle: TextStyle(
+                color: textSecondary.withValues(alpha: 0.5),
+                fontSize: 14,
+              ),
+              filled: true,
+              fillColor: bgColor,
+              contentPadding: const EdgeInsets.all(12),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
+              ),
+            ),
+            onChanged: (value) async {
+              final settingsBox = Hive.box('settingsBox');
+              await settingsBox.put('reminderMessage', value);
+
+              // Re-schedule reminder
+              if (_reminderEnabled) {
+                await NotificationService().scheduleDailyReminder(
+                  hour: _reminderTime.hour,
+                  minute: _reminderTime.minute,
+                  message: value.isEmpty
+                      ? 'Waktunya menulis jurnal hari ini!'
+                      : value,
+                );
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  // === REMINDER: TEST NOTIFICATION ===
+  Widget _buildTestNotification() {
+    return GestureDetector(
+      onTap: () async {
+        HapticFeedback.mediumImpact();
+        await NotificationService().showTestNotification(
+          _reminderMessageController.text.isEmpty
+              ? 'Waktunya menulis jurnal hari ini!'
+              : _reminderMessageController.text,
+        );
+        if (!mounted) return;
+        _showSnackBar(AppLocalizations.of(context)!.notificationSent);
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: cardColor,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: const Color(0xFF0A84FF).withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Icon(
+                Icons.send_outlined,
+                color: Color(0xFF0A84FF),
+                size: 20,
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.testNotification,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF0A84FF),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    AppLocalizations.of(context)!.testNotificationDesc,
+                    style: TextStyle(fontSize: 12, color: textSecondary),
+                  ),
+                ],
+              ),
+            ),
+            const Icon(
+              Icons.arrow_forward_ios,
+              size: 14,
+              color: Color(0xFF0A84FF),
+            ),
+          ],
+        ),
       ),
     );
   }
