@@ -716,6 +716,60 @@ abstract class AppLocalizations {
   /// **'Calendar'**
   String get calendarTitle;
 
+  /// No description provided for @aboutFeatures.
+  ///
+  /// In en, this message translates to:
+  /// **'Key Features'**
+  String get aboutFeatures;
+
+  /// No description provided for @aboutFeature1.
+  ///
+  /// In en, this message translates to:
+  /// **'Write, edit, and delete journal entries'**
+  String get aboutFeature1;
+
+  /// No description provided for @aboutFeature2.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload photos from gallery or camera'**
+  String get aboutFeature2;
+
+  /// No description provided for @aboutFeature3.
+  ///
+  /// In en, this message translates to:
+  /// **'Track your mood with 4 options'**
+  String get aboutFeature3;
+
+  /// No description provided for @aboutFeature4.
+  ///
+  /// In en, this message translates to:
+  /// **'Statistics with streak, calendar, and charts'**
+  String get aboutFeature4;
+
+  /// No description provided for @aboutFeature5.
+  ///
+  /// In en, this message translates to:
+  /// **'Multi-language (English & Indonesian)'**
+  String get aboutFeature5;
+
+  /// No description provided for @aboutDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Developer'**
+  String get aboutDeveloper;
+
+  /// No description provided for @aboutDeveloperName.
+  ///
+  /// In en, this message translates to:
+  /// **'Feri'**
+  String get aboutDeveloperName;
+
+  /// No description provided for @aboutTech.
+  ///
+  /// In en, this message translates to:
+  /// **'Built with Flutter & Hive'**
+  String get aboutTech;
+
   /// No description provided for @readingTime.
   ///
   /// In en, this message translates to:

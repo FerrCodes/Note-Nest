@@ -332,6 +332,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get calendarTitle => 'Calendar';
 
   @override
+  String get aboutFeatures => 'Key Features';
+
+  @override
+  String get aboutFeature1 => 'Write, edit, and delete journal entries';
+
+  @override
+  String get aboutFeature2 => 'Upload photos from gallery or camera';
+
+  @override
+  String get aboutFeature3 => 'Track your mood with 4 options';
+
+  @override
+  String get aboutFeature4 => 'Statistics with streak, calendar, and charts';
+
+  @override
+  String get aboutFeature5 => 'Multi-language (English & Indonesian)';
+
+  @override
+  String get aboutDeveloper => 'Developer';
+
+  @override
+  String get aboutDeveloperName => 'Feri';
+
+  @override
+  String get aboutTech => 'Built with Flutter & Hive';
+
+  @override
   String readingTime(int count) {
     return '$count min read';
   }

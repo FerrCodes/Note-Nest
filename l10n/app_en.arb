@@ -101,8 +101,17 @@
   "notificationSent": "Test notification sent!",
   "permissionDenied": "Notification permission denied. Please enable in Settings.",
   "reminderSaved": "Reminder saved successfully!",
-    "languageDesc": "Choose the language you're most comfortable with. You can change it anytime.",
-      "calendarTitle": "Calendar",
+  "languageDesc": "Choose the language you're most comfortable with. You can change it anytime.",
+  "calendarTitle": "Calendar",
+  "aboutFeatures": "Key Features",
+  "aboutFeature1": "Write, edit, and delete journal entries",
+  "aboutFeature2": "Upload photos from gallery or camera",
+  "aboutFeature3": "Track your mood with 4 options",
+  "aboutFeature4": "Statistics with streak, calendar, and charts",
+  "aboutFeature5": "Multi-language (English & Indonesian)",
+  "aboutDeveloper": "Developer",
+  "aboutDeveloperName": "Feri",
+  "aboutTech": "Built with Flutter & Hive",
   "@journalsWithMood": {
     "placeholders": {
       "count": {

@@ -333,6 +333,33 @@ class AppLocalizationsId extends AppLocalizations {
   String get calendarTitle => 'Kalender';
 
   @override
+  String get aboutFeatures => 'Fitur Utama';
+
+  @override
+  String get aboutFeature1 => 'Tulis, edit, dan hapus jurnal';
+
+  @override
+  String get aboutFeature2 => 'Unggah foto dari galeri atau kamera';
+
+  @override
+  String get aboutFeature3 => 'Lacak mood dengan 4 pilihan';
+
+  @override
+  String get aboutFeature4 => 'Statistik dengan streak, kalender, dan grafik';
+
+  @override
+  String get aboutFeature5 => 'Multi-bahasa (Inggris & Indonesia)';
+
+  @override
+  String get aboutDeveloper => 'Pengembang';
+
+  @override
+  String get aboutDeveloperName => 'Feri';
+
+  @override
+  String get aboutTech => 'Dibuat dengan Flutter & Hive';
+
+  @override
   String readingTime(int count) {
     return '$count menit baca';
   }

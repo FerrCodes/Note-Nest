@@ -477,36 +477,146 @@ class _SettingsScreenState extends State<SettingsScreen> {
       builder: (context) => AlertDialog(
         backgroundColor: cardColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: Text(
-          AppLocalizations.of(context)!.appName,
-          style: TextStyle(color: textPrimary, fontWeight: FontWeight.w600),
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              AppLocalizations.of(context)!.version,
-              style: TextStyle(
-                color: textPrimary,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
+        contentPadding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // === LOGO & NAMA ===
+              Center(
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: textPrimary.withValues(alpha: 0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.auto_stories_outlined,
+                        color: textPrimary,
+                        size: 36,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      AppLocalizations.of(context)!.appName,
+                      style: TextStyle(
+                        color: textPrimary,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      AppLocalizations.of(context)!.version,
+                      style: TextStyle(color: textSecondary, fontSize: 13),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              AppLocalizations.of(context)!.aboutDesc,
-              style: TextStyle(color: textSecondary, height: 1.5, fontSize: 13),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              AppLocalizations.of(context)!.copyright,
-              style: TextStyle(
-                color: const Color(0xFFFFD60A).withValues(alpha: 0.5),
-                fontSize: 12,
+              const SizedBox(height: 24),
+
+              // === DESKRIPSI ===
+              Text(
+                AppLocalizations.of(context)!.aboutDesc,
+                style: TextStyle(
+                  color: textSecondary,
+                  height: 1.6,
+                  fontSize: 13,
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 24),
+
+              // === FITUR UTAMA ===
+              Text(
+                AppLocalizations.of(context)!.aboutFeatures,
+                style: TextStyle(
+                  color: textPrimary,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14,
+                ),
+              ),
+              const SizedBox(height: 12),
+              _buildFeatureItem(AppLocalizations.of(context)!.aboutFeature1),
+              _buildFeatureItem(AppLocalizations.of(context)!.aboutFeature2),
+              _buildFeatureItem(AppLocalizations.of(context)!.aboutFeature3),
+              _buildFeatureItem(AppLocalizations.of(context)!.aboutFeature4),
+              _buildFeatureItem(AppLocalizations.of(context)!.aboutFeature5),
+              const SizedBox(height: 24),
+
+              // === DEVELOPER ===
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: bgColor,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0A84FF).withValues(alpha: 0.15),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.person_outline,
+                        color: Color(0xFF0A84FF),
+                        size: 20,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.aboutDeveloper,
+                          style: TextStyle(color: textSecondary, fontSize: 11),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          AppLocalizations.of(context)!.aboutDeveloperName,
+                          style: TextStyle(
+                            color: textPrimary,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // === TEKNOLOGI ===
+              Center(
+                child: Text(
+                  AppLocalizations.of(context)!.aboutTech,
+                  style: TextStyle(
+                    color: textSecondary.withValues(alpha: 0.7),
+                    fontSize: 11,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // === COPYRIGHT ===
+              Center(
+                child: Text(
+                  AppLocalizations.of(context)!.copyright,
+                  style: TextStyle(
+                    color: textSecondary.withValues(alpha: 0.5),
+                    fontSize: 11,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
+          ),
         ),
         actions: [
           TextButton(
@@ -514,6 +624,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Text(
               AppLocalizations.of(context)!.cancel,
               style: const TextStyle(color: Color(0xFF0A84FF)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // === HELPER: FITUR ITEM ===
+  Widget _buildFeatureItem(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 6),
+            width: 6,
+            height: 6,
+            decoration: const BoxDecoration(
+              color: Color(0xFF0A84FF),
+              shape: BoxShape.circle,
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(color: textSecondary, fontSize: 13, height: 1.4),
             ),
           ),
         ],

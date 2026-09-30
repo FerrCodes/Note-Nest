@@ -274,7 +274,7 @@ class _ReflectScreenState extends State<ReflectScreen> {
           Positioned(
             left: 0,
             right: 0,
-            bottom: 30,
+            bottom: 20 + MediaQuery.of(context).padding.bottom,
             child: Center(
               child: Container(
                 padding: const EdgeInsets.symmetric(

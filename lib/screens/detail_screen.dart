@@ -5,6 +5,7 @@ import 'write_screen.dart';
 import '../l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
+import 'photo_viewer_screen.dart';
 
 class DetailScreen extends StatefulWidget {
   final JournalEntry entry;
@@ -197,9 +198,42 @@ class _DetailScreenState extends State<DetailScreen> {
                   // === 2. GAMBAR DI TENGAH ===
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(24),
-                      child: _buildImage(entry.imageUrl, height: 300),
+                    child: GestureDetector(
+                      onTap: () {
+                        HapticFeedback.selectionClick();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                PhotoViewerScreen(imagePath: entry.imageUrl),
+                          ),
+                        );
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(24),
+                        child: Stack(
+                          children: [
+                            _buildImage(entry.imageUrl, height: 300),
+                            // Ikon zoom di pojok kanan bawah (opsional)
+                            Positioned(
+                              bottom: 12,
+                              right: 12,
+                              child: Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withValues(alpha: 0.5),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const Icon(
+                                  Icons.zoom_out_map,
+                                  color: Colors.white,
+                                  size: 18,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
 

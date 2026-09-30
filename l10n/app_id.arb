@@ -101,8 +101,17 @@
   "notificationSent": "Notifikasi tes terkirim!",
   "permissionDenied": "Izin notifikasi ditolak. Aktifkan di Pengaturan HP.",
   "reminderSaved": "Pengingat berhasil disimpan!",
-    "languageDesc": "Pilih bahasa yang paling nyaman untukmu. Kamu bisa mengubahnya kapan saja.",
-      "calendarTitle": "Kalender",
+  "languageDesc": "Pilih bahasa yang paling nyaman untukmu. Kamu bisa mengubahnya kapan saja.",
+  "calendarTitle": "Kalender",
+  "aboutFeatures": "Fitur Utama",
+  "aboutFeature1": "Tulis, edit, dan hapus jurnal",
+  "aboutFeature2": "Unggah foto dari galeri atau kamera",
+  "aboutFeature3": "Lacak mood dengan 4 pilihan",
+  "aboutFeature4": "Statistik dengan streak, kalender, dan grafik",
+  "aboutFeature5": "Multi-bahasa (Inggris & Indonesia)",
+  "aboutDeveloper": "Pengembang",
+  "aboutDeveloperName": "Feri",
+  "aboutTech": "Dibuat dengan Flutter & Hive",
   "@journalsWithMood": {
     "placeholders": {
       "count": {
