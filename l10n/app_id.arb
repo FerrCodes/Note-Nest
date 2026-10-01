@@ -110,8 +110,15 @@
   "aboutFeature4": "Statistik dengan streak, kalender, dan grafik",
   "aboutFeature5": "Multi-bahasa (Inggris & Indonesia)",
   "aboutDeveloper": "Pengembang",
-  "aboutDeveloperName": "Feri",
-  "aboutTech": "Dibuat dengan Flutter & Hive",
+  "aboutFollowMe": "Follow aku di Instagram",
+  "aboutInstagramHandle": "@imnotferrriii",
+  "sourceCode": "Kode Sumber",
+  "sourceCodeDesc": "Lihat semua projek ini di repositori GitHub",
+  "sendFeedbackOptions": "Lewat mana kamu ingin kirim feedback?",
+  "viaEmail": "Email",
+  "viaWhatsApp": "WhatsApp",
+  "noWhatsApp": "WhatsApp tidak terinstall",
+  "feedbackMessage": "Halo Feri, saya ingin memberi feedback tentang NoteNest:\n\n",
   "@journalsWithMood": {
     "placeholders": {
       "count": {

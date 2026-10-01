@@ -110,8 +110,15 @@
   "aboutFeature4": "Statistics with streak, calendar, and charts",
   "aboutFeature5": "Multi-language (English & Indonesian)",
   "aboutDeveloper": "Developer",
-  "aboutDeveloperName": "Feri",
-  "aboutTech": "Built with Flutter & Hive",
+  "aboutFollowMe": "Follow me on Instagram",
+  "aboutInstagramHandle": "@imnotferrriii",
+  "sourceCode": "Source Code",
+  "sourceCodeDesc": "View the entire project on GitHub",
+  "sendFeedbackOptions": "How do you want to send feedback?",
+  "viaEmail": "Email",
+  "viaWhatsApp": "WhatsApp",
+  "noWhatsApp": "WhatsApp is not installed",
+  "feedbackMessage": "Hello Feri, I would like to provide feedback on NoteNest:\n\n",
   "@journalsWithMood": {
     "placeholders": {
       "count": {

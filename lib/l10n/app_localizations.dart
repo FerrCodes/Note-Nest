@@ -758,17 +758,59 @@ abstract class AppLocalizations {
   /// **'Developer'**
   String get aboutDeveloper;
 
-  /// No description provided for @aboutDeveloperName.
+  /// No description provided for @aboutFollowMe.
   ///
   /// In en, this message translates to:
-  /// **'Feri'**
-  String get aboutDeveloperName;
+  /// **'Follow me on Instagram'**
+  String get aboutFollowMe;
 
-  /// No description provided for @aboutTech.
+  /// No description provided for @aboutInstagramHandle.
   ///
   /// In en, this message translates to:
-  /// **'Built with Flutter & Hive'**
-  String get aboutTech;
+  /// **'@imnotferrriii'**
+  String get aboutInstagramHandle;
+
+  /// No description provided for @sourceCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Source Code'**
+  String get sourceCode;
+
+  /// No description provided for @sourceCodeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'View this project on GitHub'**
+  String get sourceCodeDesc;
+
+  /// No description provided for @sendFeedbackOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'How do you want to send feedback?'**
+  String get sendFeedbackOptions;
+
+  /// No description provided for @viaEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get viaEmail;
+
+  /// No description provided for @viaWhatsApp.
+  ///
+  /// In en, this message translates to:
+  /// **'WhatsApp'**
+  String get viaWhatsApp;
+
+  /// No description provided for @noWhatsApp.
+  ///
+  /// In en, this message translates to:
+  /// **'WhatsApp is not installed'**
+  String get noWhatsApp;
+
+  /// No description provided for @feedbackMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Halo Feri, saya ingin memberi feedback tentang NoteNest:\n\n'**
+  String get feedbackMessage;
 
   /// No description provided for @readingTime.
   ///

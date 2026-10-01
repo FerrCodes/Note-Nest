@@ -9,6 +9,7 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../services/notification_service.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -106,7 +107,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                 const SizedBox(height: 32),
 
-                // === SECTION TENTANG ===
+                // === SECTION 2: TENTANG ===
                 _buildSectionTitle(AppLocalizations.of(context)!.about),
                 const SizedBox(height: 12),
                 _buildSettingItem(
@@ -122,24 +123,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   subtitle: AppLocalizations.of(context)!.feedbackDesc,
                   onTap: () async {
                     HapticFeedback.selectionClick();
-
-                    final Uri emailUri = Uri(
-                      scheme: 'mailto',
-                      path: 'ferdiantoferi1303@gmail.com',
-                      query: Uri.encodeFull(
-                        'subject=NoteNest Feedback&body=Halo, saya ingin memberi feedback tentang NoteNest:%0A%0A',
-                      ),
+                    _showFeedbackOptionsDialog(context);
+                  },
+                ),
+                // === SOURCE CODE (dengan ikon GitHub asli) ===
+                _buildSettingItem(
+                  customIcon: const FaIcon(
+                    FontAwesomeIcons.github,
+                    color: Color(0xFFF2F2F7),
+                    size: 20,
+                  ),
+                  title: AppLocalizations.of(context)!.sourceCode,
+                  subtitle: AppLocalizations.of(context)!.sourceCodeDesc,
+                  onTap: () async {
+                    HapticFeedback.selectionClick();
+                    final Uri repoUri = Uri.parse(
+                      'https://github.com/FerrCodes/Note-Nest',
                     );
-
                     try {
-                      await launchUrl(emailUri);
+                      await launchUrl(
+                        repoUri,
+                        mode: LaunchMode.platformDefault,
+                      );
                     } catch (e) {
                       if (!context.mounted) return;
-                      _showSnackBar('Tidak ada aplikasi email terinstall');
+                      _showSnackBar('Gagal membuka GitHub: $e');
                     }
                   },
                 ),
-
+                const SizedBox(height: 8),
                 const SizedBox(height: 40),
 
                 // === FOOTER ===
@@ -312,7 +324,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Widget _buildSettingItem({
-    required IconData icon,
+    IconData? icon,
+    Widget? customIcon,
     required String title,
     required String subtitle,
     required VoidCallback onTap,
@@ -339,11 +352,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     : textPrimary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Icon(
-                icon,
-                color: isDestructive ? Colors.red : textPrimary,
-                size: 20,
-              ),
+              // Pakai customIcon kalau ada, kalau tidak pakai Icon biasa
+              child:
+                  customIcon ??
+                  Icon(
+                    icon,
+                    color: isDestructive ? Colors.red : textPrimary,
+                    size: 20,
+                  ),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -518,87 +534,87 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               const SizedBox(height: 24),
 
-              // === DESKRIPSI ===
-              Text(
-                AppLocalizations.of(context)!.aboutDesc,
-                style: TextStyle(
-                  color: textSecondary,
-                  height: 1.6,
-                  fontSize: 13,
-                ),
-              ),
-              const SizedBox(height: 24),
-
-              // === FITUR UTAMA ===
-              Text(
-                AppLocalizations.of(context)!.aboutFeatures,
-                style: TextStyle(
-                  color: textPrimary,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
-                ),
-              ),
-              const SizedBox(height: 12),
-              _buildFeatureItem(AppLocalizations.of(context)!.aboutFeature1),
-              _buildFeatureItem(AppLocalizations.of(context)!.aboutFeature2),
-              _buildFeatureItem(AppLocalizations.of(context)!.aboutFeature3),
-              _buildFeatureItem(AppLocalizations.of(context)!.aboutFeature4),
-              _buildFeatureItem(AppLocalizations.of(context)!.aboutFeature5),
-              const SizedBox(height: 24),
-
-              // === DEVELOPER ===
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: bgColor,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF0A84FF).withValues(alpha: 0.15),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.person_outline,
-                        color: Color(0xFF0A84FF),
-                        size: 20,
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.aboutDeveloper,
-                          style: TextStyle(color: textSecondary, fontSize: 11),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          AppLocalizations.of(context)!.aboutDeveloperName,
-                          style: TextStyle(
-                            color: textPrimary,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+              // === DEVELOPER + INSTAGRAM ===
+              GestureDetector(
+                onTap: () async {
+                  HapticFeedback.selectionClick();
+                  final Uri instagramUri = Uri.parse(
+                    'https://www.instagram.com/imnotferrriii/',
+                  );
+                  try {
+                    await launchUrl(
+                      instagramUri,
+                      mode: LaunchMode.platformDefault,
+                    );
+                  } catch (e) {
+                    if (!context.mounted) return;
+                    _showSnackBar('Gagal membuka Instagram: $e');
+                  }
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        const Color(0xFF833AB4).withValues(alpha: 0.15),
+                        const Color(0xFFFD1D1D).withValues(alpha: 0.15),
+                        const Color(0xFFFCB045).withValues(alpha: 0.15),
                       ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                     ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 16),
-
-              // === TEKNOLOGI ===
-              Center(
-                child: Text(
-                  AppLocalizations.of(context)!.aboutTech,
-                  style: TextStyle(
-                    color: textSecondary.withValues(alpha: 0.7),
-                    fontSize: 11,
-                    fontStyle: FontStyle.italic,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: const Color(0xFFFD1D1D).withValues(alpha: 0.3),
+                      width: 1,
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!.aboutDeveloper,
+                              style: TextStyle(
+                                color: textSecondary,
+                                fontSize: 11,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            // Username Instagram dengan gradient
+                            ShaderMask(
+                              shaderCallback: (bounds) => const LinearGradient(
+                                colors: [
+                                  Color(0xFF833AB4),
+                                  Color(0xFFFD1D1D),
+                                  Color(0xFFFCB045),
+                                ],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ).createShader(bounds),
+                              child: Text(
+                                AppLocalizations.of(
+                                  context,
+                                )!.aboutInstagramHandle,
+                                style: const TextStyle(
+                                  color:
+                                      Colors.white, // Diwarnai oleh ShaderMask
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: 14,
+                        color: textSecondary.withValues(alpha: 0.5),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -624,34 +640,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Text(
               AppLocalizations.of(context)!.cancel,
               style: const TextStyle(color: Color(0xFF0A84FF)),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // === HELPER: FITUR ITEM ===
-  Widget _buildFeatureItem(String text) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(top: 6),
-            width: 6,
-            height: 6,
-            decoration: const BoxDecoration(
-              color: Color(0xFF0A84FF),
-              shape: BoxShape.circle,
-            ),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              text,
-              style: TextStyle(color: textSecondary, fontSize: 13, height: 1.4),
             ),
           ),
         ],
@@ -986,6 +974,162 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
       ),
     );
+  }
+
+  // === DIALOG PILIHAN FEEDBACK ===
+  void _showFeedbackOptionsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: cardColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Text(
+          AppLocalizations.of(context)!.sendFeedback,
+          style: TextStyle(
+            color: textPrimary,
+            fontWeight: FontWeight.w600,
+            fontSize: 18,
+          ),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              AppLocalizations.of(context)!.sendFeedbackOptions,
+              style: TextStyle(color: textSecondary, fontSize: 13, height: 1.5),
+            ),
+            const SizedBox(height: 20),
+            // Tombol Email
+            // Tombol Email (dengan ikon Gmail asli)
+            _buildFeedbackOption(
+              customIcon: const FaIcon(
+                FontAwesomeIcons.envelope,
+                color: Color(0xFFEA4335), // Warna merah Gmail
+                size: 20,
+              ),
+              label: AppLocalizations.of(context)!.viaEmail,
+              color: const Color(0xFFEA4335),
+              onTap: () {
+                Navigator.pop(context);
+                _sendFeedbackViaEmail();
+              },
+            ),
+            const SizedBox(height: 10),
+            // Tombol WhatsApp (dengan ikon WhatsApp asli)
+            _buildFeedbackOption(
+              customIcon: const FaIcon(
+                FontAwesomeIcons.whatsapp,
+                color: Color(0xFF25D366), // Warna hijau WhatsApp
+                size: 20,
+              ),
+              label: AppLocalizations.of(context)!.viaWhatsApp,
+              color: const Color(0xFF25D366),
+              onTap: () {
+                Navigator.pop(context);
+                _sendFeedbackViaWhatsApp();
+              },
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              AppLocalizations.of(context)!.cancel,
+              style: TextStyle(color: textSecondary),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // === WIDGET TOMBOL PILIHAN FEEDBACK ===
+  Widget _buildFeedbackOption({
+    IconData? icon,
+    Widget? customIcon,
+    required String label,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        HapticFeedback.selectionClick();
+        onTap();
+      },
+      child: Container(
+        padding: const EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: color.withValues(alpha: 0.3), width: 1),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: customIcon ?? Icon(icon, color: color, size: 20),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Text(
+                label,
+                style: TextStyle(
+                  color: textPrimary,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            Icon(
+              Icons.arrow_forward_ios,
+              size: 14,
+              color: textSecondary.withValues(alpha: 0.5),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // === KIRIM FEEDBACK VIA EMAIL ===
+  Future<void> _sendFeedbackViaEmail() async {
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: 'ferdiantoferi1303@gmail.com',
+      query: Uri.encodeFull(
+        'subject=NoteNest Feedback&body=${AppLocalizations.of(context)!.feedbackMessage}',
+      ),
+    );
+
+    try {
+      await launchUrl(emailUri);
+    } catch (e) {
+      if (!mounted) return;
+      _showSnackBar('Tidak ada aplikasi email terinstall');
+    }
+  }
+
+  // === KIRIM FEEDBACK VIA WHATSAPP ===
+  Future<void> _sendFeedbackViaWhatsApp() async {
+    const String phoneNumber = '6285123644293';
+
+    final String message = AppLocalizations.of(context)!.feedbackMessage;
+    final Uri whatsappUri = Uri.parse(
+      'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}',
+    );
+
+    try {
+      await launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      if (!mounted) return;
+      _showSnackBar(AppLocalizations.of(context)!.noWhatsApp);
+    }
   }
 
   // === SNACKBAR HELPER ===

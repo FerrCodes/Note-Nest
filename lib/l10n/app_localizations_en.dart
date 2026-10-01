@@ -353,10 +353,32 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aboutDeveloper => 'Developer';
 
   @override
-  String get aboutDeveloperName => 'Feri';
+  String get aboutFollowMe => 'Follow me on Instagram';
 
   @override
-  String get aboutTech => 'Built with Flutter & Hive';
+  String get aboutInstagramHandle => '@imnotferrriii';
+
+  @override
+  String get sourceCode => 'Source Code';
+
+  @override
+  String get sourceCodeDesc => 'View this project on GitHub';
+
+  @override
+  String get sendFeedbackOptions => 'How do you want to send feedback?';
+
+  @override
+  String get viaEmail => 'Email';
+
+  @override
+  String get viaWhatsApp => 'WhatsApp';
+
+  @override
+  String get noWhatsApp => 'WhatsApp is not installed';
+
+  @override
+  String get feedbackMessage =>
+      'Halo Feri, saya ingin memberi feedback tentang NoteNest:\n\n';
 
   @override
   String readingTime(int count) {
