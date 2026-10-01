@@ -785,7 +785,7 @@ abstract class AppLocalizations {
   /// No description provided for @aboutInstagramHandle.
   ///
   /// In en, this message translates to:
-  /// **'@imnotferrriii'**
+  /// **'imnotferrriii'**
   String get aboutInstagramHandle;
 
   /// No description provided for @sourceCode.
@@ -829,6 +829,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hello Feri, I would like to provide feedback on NoteNest:\n\n'**
   String get feedbackMessage;
+
+  /// No description provided for @aboutGithubHandle.
+  ///
+  /// In en, this message translates to:
+  /// **'FerrCodes'**
+  String get aboutGithubHandle;
+
+  /// No description provided for @aboutDeveloperName.
+  ///
+  /// In en, this message translates to:
+  /// **'Feri'**
+  String get aboutDeveloperName;
+
+  /// No description provided for @socialMedia.
+  ///
+  /// In en, this message translates to:
+  /// **'Social Media'**
+  String get socialMedia;
+
+  /// No description provided for @socialMediaDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect with the developer'**
+  String get socialMediaDesc;
+
+  /// No description provided for @appDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'A minimalist journal app to capture daily moments, self-reflection, and track your mood. Works fully offline.'**
+  String get appDescription;
 
   /// No description provided for @readingTime.
   ///

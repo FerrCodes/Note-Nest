@@ -23,6 +23,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final Color cardColor = const Color(0xFF1E1E1E);
   final Color textPrimary = const Color(0xFFF2F2F7);
   final Color textSecondary = const Color(0xFF8E8E93);
+  bool _isSocialMediaExpanded = false;
   // State Reminder
   bool _reminderEnabled = false;
   TimeOfDay _reminderTime = const TimeOfDay(hour: 20, minute: 0);
@@ -126,6 +127,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     _showFeedbackOptionsDialog(context);
                   },
                 ),
+                const SizedBox(height: 8),
                 // === SOURCE CODE (dengan ikon GitHub asli) ===
                 _buildSettingItem(
                   customIcon: const FaIcon(
@@ -488,161 +490,349 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   // === FUNGSI TENTANG ===
   void _showAboutDialog() {
+    // Reset dropdown ke tertutup setiap kali modal dibuka
+    _isSocialMediaExpanded = false;
+
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: cardColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        contentPadding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // === LOGO & NAMA ===
-              Center(
-                child: Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: textPrimary.withValues(alpha: 0.1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.auto_stories_outlined,
-                        color: textPrimary,
-                        size: 36,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      AppLocalizations.of(context)!.appName,
-                      style: TextStyle(
-                        color: textPrimary,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      AppLocalizations.of(context)!.version,
-                      style: TextStyle(color: textSecondary, fontSize: 13),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
-
-              // === DEVELOPER + INSTAGRAM ===
-              GestureDetector(
-                onTap: () async {
-                  HapticFeedback.selectionClick();
-                  final Uri instagramUri = Uri.parse(
-                    'https://www.instagram.com/imnotferrriii/',
-                  );
-                  try {
-                    await launchUrl(
-                      instagramUri,
-                      mode: LaunchMode.platformDefault,
-                    );
-                  } catch (e) {
-                    if (!context.mounted) return;
-                    _showSnackBar('Gagal membuka Instagram: $e');
-                  }
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        const Color(0xFF833AB4).withValues(alpha: 0.15),
-                        const Color(0xFFFD1D1D).withValues(alpha: 0.15),
-                        const Color(0xFFFCB045).withValues(alpha: 0.15),
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: const Color(0xFFFD1D1D).withValues(alpha: 0.3),
-                      width: 1,
-                    ),
-                  ),
-                  child: Row(
+      builder: (context) => StatefulBuilder(
+        builder: (context, setModalState) => AlertDialog(
+          backgroundColor: cardColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          contentPadding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // === LOGO & NAMA ===
+                Center(
+                  child: Column(
                     children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppLocalizations.of(context)!.aboutDeveloper,
-                              style: TextStyle(
-                                color: textSecondary,
-                                fontSize: 11,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            // Username Instagram dengan gradient
-                            ShaderMask(
-                              shaderCallback: (bounds) => const LinearGradient(
-                                colors: [
-                                  Color(0xFF833AB4),
-                                  Color(0xFFFD1D1D),
-                                  Color(0xFFFCB045),
-                                ],
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                              ).createShader(bounds),
-                              child: Text(
-                                AppLocalizations.of(
-                                  context,
-                                )!.aboutInstagramHandle,
-                                style: const TextStyle(
-                                  color:
-                                      Colors.white, // Diwarnai oleh ShaderMask
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
-                          ],
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: textPrimary.withValues(alpha: 0.1),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.auto_stories_outlined,
+                          color: textPrimary,
+                          size: 36,
                         ),
                       ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        size: 14,
-                        color: textSecondary.withValues(alpha: 0.5),
+                      const SizedBox(height: 12),
+                      Text(
+                        AppLocalizations.of(context)!.appName,
+                        style: TextStyle(
+                          color: textPrimary,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        AppLocalizations.of(context)!.version,
+                        style: TextStyle(color: textSecondary, fontSize: 13),
                       ),
                     ],
                   ),
                 ),
-              ),
-              const SizedBox(height: 16),
+                const SizedBox(height: 24),
 
-              // === COPYRIGHT ===
-              Center(
-                child: Text(
-                  AppLocalizations.of(context)!.copyright,
+                // === DESKRIPSI APLIKASI ===
+                Text(
+                  AppLocalizations.of(context)!.appDescription,
                   style: TextStyle(
-                    color: textSecondary.withValues(alpha: 0.5),
-                    fontSize: 11,
+                    color: textSecondary,
+                    height: 1.6,
+                    fontSize: 13,
                   ),
                 ),
-              ),
-              const SizedBox(height: 16),
-            ],
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(
-              AppLocalizations.of(context)!.cancel,
-              style: const TextStyle(color: Color(0xFF0A84FF)),
+                const SizedBox(height: 20),
+
+                // === DEVELOPER ===
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: bgColor,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: const Color(
+                            0xFF0A84FF,
+                          ).withValues(alpha: 0.15),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.person_outline,
+                          color: Color(0xFF0A84FF),
+                          size: 20,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.aboutDeveloper,
+                            style: TextStyle(
+                              color: textSecondary,
+                              fontSize: 11,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            AppLocalizations.of(context)!.aboutDeveloperName,
+                            style: TextStyle(
+                              color: textPrimary,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                // === DROPDOWN MEDIA SOSIAL ===
+                GestureDetector(
+                  onTap: () {
+                    HapticFeedback.selectionClick();
+                    setModalState(() {
+                      _isSocialMediaExpanded = !_isSocialMediaExpanded;
+                    });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: bgColor,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [
+                                    Color(0xFF833AB4),
+                                    Color(0xFFFD1D1D),
+                                    Color(0xFFFCB045),
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: const Icon(
+                                Icons.share_outlined,
+                                color: Colors.white,
+                                size: 18,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!.socialMedia,
+                                    style: TextStyle(
+                                      color: textPrimary,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.socialMediaDesc,
+                                    style: TextStyle(
+                                      color: textSecondary,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            AnimatedRotation(
+                              turns: _isSocialMediaExpanded ? 0.5 : 0,
+                              duration: const Duration(milliseconds: 200),
+                              child: Icon(
+                                Icons.keyboard_arrow_down,
+                                color: textSecondary,
+                                size: 22,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        // === KONTEN DROPDOWN ===
+                        AnimatedCrossFade(
+                          firstChild: const SizedBox.shrink(),
+                          secondChild: Column(
+                            children: [
+                              const SizedBox(height: 12),
+                              const Divider(
+                                color: Color(0xFF2C2C2E),
+                                height: 1,
+                              ),
+                              const SizedBox(height: 12),
+
+                              // Instagram
+                              GestureDetector(
+                                onTap: () async {
+                                  HapticFeedback.selectionClick();
+                                  final Uri uri = Uri.parse(
+                                    'https://www.instagram.com/imnotferrriii/',
+                                  );
+                                  try {
+                                    await launchUrl(
+                                      uri,
+                                      mode: LaunchMode.platformDefault,
+                                    );
+                                  } catch (e) {
+                                    if (!context.mounted) return;
+                                    _showSnackBar(
+                                      'Gagal membuka Instagram: $e',
+                                    );
+                                  }
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      ShaderMask(
+                                        shaderCallback: (bounds) =>
+                                            const LinearGradient(
+                                              colors: [
+                                                Color(0xFF833AB4),
+                                                Color(0xFFFD1D1D),
+                                                Color(0xFFFCB045),
+                                              ],
+                                              begin: Alignment.centerLeft,
+                                              end: Alignment.centerRight,
+                                            ).createShader(bounds),
+                                        child: Text(
+                                          AppLocalizations.of(
+                                            context,
+                                          )!.aboutInstagramHandle,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Icon(
+                                        Icons.arrow_forward_ios,
+                                        size: 12,
+                                        color: textSecondary.withValues(
+                                          alpha: 0.5,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+                              // GitHub
+                              GestureDetector(
+                                onTap: () async {
+                                  HapticFeedback.selectionClick();
+                                  final Uri uri = Uri.parse(
+                                    'https://github.com/FerrCodes',
+                                  );
+                                  try {
+                                    await launchUrl(
+                                      uri,
+                                      mode: LaunchMode.platformDefault,
+                                    );
+                                  } catch (e) {
+                                    if (!context.mounted) return;
+                                    _showSnackBar('Gagal membuka GitHub: $e');
+                                  }
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      ShaderMask(
+                                        shaderCallback: (bounds) =>
+                                            const LinearGradient(
+                                              colors: [
+                                                Color(0xFF6E7681),
+                                                Color(0xFFC9D1D9),
+                                                Color(0xFFF0F6FC),
+                                              ],
+                                              begin: Alignment.centerLeft,
+                                              end: Alignment.centerRight,
+                                            ).createShader(bounds),
+                                        child: Text(
+                                          AppLocalizations.of(
+                                            context,
+                                          )!.aboutGithubHandle,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Icon(
+                                        Icons.arrow_forward_ios,
+                                        size: 12,
+                                        color: textSecondary.withValues(
+                                          alpha: 0.5,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          crossFadeState: _isSocialMediaExpanded
+                              ? CrossFadeState.showSecond
+                              : CrossFadeState.showFirst,
+                          duration: const Duration(milliseconds: 200),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
             ),
           ),
-        ],
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(
+                AppLocalizations.of(context)!.cancel,
+                style: const TextStyle(color: Color(0xFF0A84FF)),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

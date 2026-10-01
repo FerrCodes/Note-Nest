@@ -114,7 +114,7 @@
   "aboutFeature5": "Multi-bahasa (Inggris & Indonesia)",
   "aboutDeveloper": "Pengembang",
   "aboutFollowMe": "Follow aku di Instagram",
-  "aboutInstagramHandle": "@imnotferrriii",
+  "aboutInstagramHandle": "imnotferrriii",
   "sourceCode": "Kode Sumber",
   "sourceCodeDesc": "Lihat semua projek ini di repositori GitHub",
   "sendFeedbackOptions": "Lewat mana kamu ingin kirim feedback?",
@@ -122,6 +122,11 @@
   "viaWhatsApp": "WhatsApp",
   "noWhatsApp": "WhatsApp tidak terinstall",
   "feedbackMessage": "Halo Feri, saya ingin memberi feedback tentang NoteNest:\n\n",
+  "aboutGithubHandle": "FerrCodes",
+  "aboutDeveloperName": "Feri",
+  "socialMedia": "Media Sosial",
+  "socialMediaDesc": "Terhubung dengan pengembang",
+  "appDescription": "Aplikasi jurnal minimalis untuk mencatat momen harian, refleksi diri, dan melacak mood. Bekerja sepenuhnya offline.",
   "@journalsWithMood": {
     "placeholders": {
       "count": {

@@ -114,7 +114,7 @@
   "aboutFeature5": "Multi-language (English & Indonesian)",
   "aboutDeveloper": "Developer",
   "aboutFollowMe": "Follow me on Instagram",
-  "aboutInstagramHandle": "@imnotferrriii",
+  "aboutInstagramHandle": "imnotferrriii",
   "sourceCode": "Source Code",
   "sourceCodeDesc": "View the entire project on GitHub",
   "sendFeedbackOptions": "How do you want to send feedback?",
@@ -122,6 +122,11 @@
   "viaWhatsApp": "WhatsApp",
   "noWhatsApp": "WhatsApp is not installed",
   "feedbackMessage": "Hello Feri, I would like to provide feedback on NoteNest:\n\n",
+  "aboutGithubHandle": "FerrCodes",
+  "aboutDeveloperName": "Feri",
+    "socialMedia": "Social Media",
+  "socialMediaDesc": "Connect with the developer",
+  "appDescription": "A minimalist journal app to capture daily moments, self-reflection, and track your mood. Works fully offline.",
   "@journalsWithMood": {
     "placeholders": {
       "count": {

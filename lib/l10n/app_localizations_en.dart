@@ -367,7 +367,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aboutFollowMe => 'Follow me on Instagram';
 
   @override
-  String get aboutInstagramHandle => '@imnotferrriii';
+  String get aboutInstagramHandle => 'imnotferrriii';
 
   @override
   String get sourceCode => 'Source Code';
@@ -390,6 +390,22 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get feedbackMessage =>
       'Hello Feri, I would like to provide feedback on NoteNest:\n\n';
+
+  @override
+  String get aboutGithubHandle => 'FerrCodes';
+
+  @override
+  String get aboutDeveloperName => 'Feri';
+
+  @override
+  String get socialMedia => 'Social Media';
+
+  @override
+  String get socialMediaDesc => 'Connect with the developer';
+
+  @override
+  String get appDescription =>
+      'A minimalist journal app to capture daily moments, self-reflection, and track your mood. Works fully offline.';
 
   @override
   String readingTime(int count) {
