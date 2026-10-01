@@ -36,8 +36,20 @@ class AppLocalizationsId extends AppLocalizations {
   String get filterFocused => 'Fokus';
 
   @override
-  String get quote =>
+  String get quoteMorning =>
+      '\"Setiap pagi membawa potensi baru. Mulailah hari ini dengan niat yang baik.\"';
+
+  @override
+  String get quoteAfternoon =>
+      '\"Rasa syukur mengubah apa yang kita miliki menjadi cukup.\"';
+
+  @override
+  String get quoteEvening =>
       '\"Perubahan kecil dalam cara pandang dapat membuka pintu menuju ketenangan batin yang mendalam.\"';
+
+  @override
+  String get quoteNight =>
+      '\"Ketenangan malam adalah tempat jiwa menemukan istirahatnya.\"';
 
   @override
   String get todaysEntry => 'Jurnal Hari Ini';
@@ -363,7 +375,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get sourceCode => 'Kode Sumber';
 
   @override
-  String get sourceCodeDesc => 'Lihat proyek ini di GitHub';
+  String get sourceCodeDesc => 'Lihat semua projek ini di repositori GitHub';
 
   @override
   String get sendFeedbackOptions => 'Lewat mana kamu ingin kirim feedback?';

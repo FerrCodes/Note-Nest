@@ -101,6 +101,21 @@ class _ReflectScreenState extends State<ReflectScreen> {
     }
   }
 
+  String _getTimeBasedQuote(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final hour = DateTime.now().hour;
+
+    if (hour >= 5 && hour < 12) {
+      return l10n.quoteMorning; // 05:00 - 11:59
+    } else if (hour >= 12 && hour < 18) {
+      return l10n.quoteAfternoon; // 12:00 - 17:59
+    } else if (hour >= 18 && hour < 22) {
+      return l10n.quoteEvening; // 18:00 - 21:59
+    } else {
+      return l10n.quoteNight; // 22:00 - 04:59
+    }
+  }
+
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -239,9 +254,9 @@ class _ReflectScreenState extends State<ReflectScreen> {
                     ),
                     const SizedBox(height: 30),
 
-                    // Quote
+                    // Quote berganti berdasarkan waktu
                     Text(
-                      AppLocalizations.of(context)!.quote,
+                      _getTimeBasedQuote(context),
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,

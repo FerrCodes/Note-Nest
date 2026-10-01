@@ -152,11 +152,29 @@ abstract class AppLocalizations {
   /// **'Focused'**
   String get filterFocused;
 
-  /// No description provided for @quote.
+  /// No description provided for @quoteMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'\"Every morning brings new potential. Start today with intention.\"'**
+  String get quoteMorning;
+
+  /// No description provided for @quoteAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'\"Gratitude turns what we have into enough.\"'**
+  String get quoteAfternoon;
+
+  /// No description provided for @quoteEvening.
   ///
   /// In en, this message translates to:
   /// **'\"Small shifts in perspective can open the door to profound inner stillness.\"'**
-  String get quote;
+  String get quoteEvening;
+
+  /// No description provided for @quoteNight.
+  ///
+  /// In en, this message translates to:
+  /// **'\"The quiet of night is where the soul finds its rest.\"'**
+  String get quoteNight;
 
   /// No description provided for @todaysEntry.
   ///
@@ -779,7 +797,7 @@ abstract class AppLocalizations {
   /// No description provided for @sourceCodeDesc.
   ///
   /// In en, this message translates to:
-  /// **'View this project on GitHub'**
+  /// **'View the entire project on GitHub'**
   String get sourceCodeDesc;
 
   /// No description provided for @sendFeedbackOptions.
@@ -809,7 +827,7 @@ abstract class AppLocalizations {
   /// No description provided for @feedbackMessage.
   ///
   /// In en, this message translates to:
-  /// **'Halo Feri, saya ingin memberi feedback tentang NoteNest:\n\n'**
+  /// **'Hello Feri, I would like to provide feedback on NoteNest:\n\n'**
   String get feedbackMessage;
 
   /// No description provided for @readingTime.

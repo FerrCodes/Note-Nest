@@ -36,8 +36,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get filterFocused => 'Focused';
 
   @override
-  String get quote =>
+  String get quoteMorning =>
+      '\"Every morning brings new potential. Start today with intention.\"';
+
+  @override
+  String get quoteAfternoon => '\"Gratitude turns what we have into enough.\"';
+
+  @override
+  String get quoteEvening =>
       '\"Small shifts in perspective can open the door to profound inner stillness.\"';
+
+  @override
+  String get quoteNight =>
+      '\"The quiet of night is where the soul finds its rest.\"';
 
   @override
   String get todaysEntry => 'Today\'s Entry';
@@ -362,7 +373,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sourceCode => 'Source Code';
 
   @override
-  String get sourceCodeDesc => 'View this project on GitHub';
+  String get sourceCodeDesc => 'View the entire project on GitHub';
 
   @override
   String get sendFeedbackOptions => 'How do you want to send feedback?';
@@ -378,7 +389,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get feedbackMessage =>
-      'Halo Feri, saya ingin memberi feedback tentang NoteNest:\n\n';
+      'Hello Feri, I would like to provide feedback on NoteNest:\n\n';
 
   @override
   String readingTime(int count) {
