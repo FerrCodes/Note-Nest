@@ -2,19 +2,81 @@
 
 Aplikasi jurnal minimalis yang dibangun dengan Flutter. Tulis, refleksi, dan lacak mood-mu — semuanya offline.
 
-## Fitur
+---
 
+<h1><a id="features"></a>Features</h1>
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+
+#### Menulis Jurnal
 - Tulis, edit, dan hapus jurnal
-- Unggah foto dari galeri atau kamera
-- Lacak mood dengan 4 pilihan: Tenang, Bersyukur, Damai, Fokus
-- Statistik dengan streak, kalender, dan grafik
-- Dukungan multi-bahasa (Inggris & Indonesia)
-- Notifikasi pengingat harian
+- Tanggal & waktu otomatis
+- Reading time & word count
+- Waktu terakhir diedit
 - Mode gelap
-- Ekspor jurnal
-- 100% offline dengan Hive
 
-## Tangkapan Layar
+</td>
+    <td width="50%" valign="top">
+
+#### Foto & Mood
+- 8 preset gambar estetik
+- Unggah foto dari galeri
+- Ambil foto langsung dari kamera
+- Lacak mood dengan 4 pilihan
+- Tandai jurnal sebagai favorit
+
+</td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+
+#### Pencarian & Filter
+- Cari jurnal berdasarkan judul & isi
+- Filter berdasarkan mood
+- Filter favorit
+- Tampilan daftar yang bersih
+
+</td>
+    <td width="50%" valign="top">
+
+#### Statistik
+- Streak menulis jurnal
+- Kalender bulanan
+- Grafik mingguan
+- Distribusi mood
+- Mood terbanyak
+
+</td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+
+#### Notifikasi & Pengingat
+- Pengingat harian
+- Pesan kustom
+- Pilih jam sendiri
+- Notifikasi tetap muncul setelah HP restart
+
+</td>
+    <td width="50%" valign="top">
+
+#### Lainnya
+- Multi-bahasa (Inggris & Indonesia)
+- Ekspor jurnal ke file
+- 100% offline dengan Hive
+- Animasi & haptic feedback
+
+</td>
+  </tr>
+</table>
+
+</div>
+
+---
+
+## Screenshots
 
 <p align="center">
   <img src="screenshots/home.jpg" width="180"/>
@@ -23,7 +85,9 @@ Aplikasi jurnal minimalis yang dibangun dengan Flutter. Tulis, refleksi, dan lac
   <img src="screenshots/stats.jpg" width="180"/>
 </p>
 
-## Dibangun Dengan
+---
+
+## Tech Stack yang digunakan
 
 - [Flutter](https://flutter.dev) — Framework UI
 - [Hive](https://pub.dev/packages/hive) — Database lokal
@@ -32,6 +96,4 @@ Aplikasi jurnal minimalis yang dibangun dengan Flutter. Tulis, refleksi, dan lac
 - [image_picker](https://pub.dev/packages/image_picker) — Kamera & galeri
 - [intl](https://pub.dev/packages/intl) — Lokalisasi
 
-## Lisensi
-
-© 2026 Feri. Hak cipta dilindungi.
+---
