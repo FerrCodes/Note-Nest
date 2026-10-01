@@ -17,10 +17,10 @@ Aplikasi jurnal minimalis yang dibangun dengan Flutter. Tulis, refleksi, dan lac
 ## Tangkapan Layar
 
 <p align="center">
-  <img src="screenshots/home.png" width="180"/>
-  <img src="screenshots/write.png" width="180"/>
-  <img src="screenshots/detail.png" width="180"/>
-  <img src="screenshots/stats.png" width="180"/>
+  <img src="screenshots/home.jpg" width="180"/>
+  <img src="screenshots/write.jpg" width="180"/>
+  <img src="screenshots/detail.jpg" width="180"/>
+  <img src="screenshots/stats.jpg" width="180"/>
 </p>
 
 ## Dibangun Dengan
