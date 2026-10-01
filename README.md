@@ -1,6 +1,11 @@
 # NoteNest
 
-Aplikasi jurnal minimalis yang dibangun dengan Flutter. Tulis, refleksi, dan lacak mood-mu — semuanya offline.
+Adalah aplikasi jurnal pribadi dengan fitur lengkap: tulis jurnal, unggah foto dari galeri atau kamera, lacak mood harian, dan pantau statistik semua jurnal yang ada secara offline, dan mendukung dua bahasa.
+
+---
+
+> [!WARNING]
+> **NoteNest** ini sedang dalam tahap pengembangan aktif. Versi saat ini secara fitur semua sudah berfungsi dengan baik. Fitur baru akan ditambahkan secara bertahap.
 
 ---
 
@@ -87,13 +92,29 @@ Aplikasi jurnal minimalis yang dibangun dengan Flutter. Tulis, refleksi, dan lac
 
 ---
 
-## Tech Stack yang digunakan
+## Tech Stack
 
-- [Flutter](https://flutter.dev) — Framework UI
-- [Hive](https://pub.dev/packages/hive) — Database lokal
-- [fl_chart](https://pub.dev/packages/fl_chart) — Grafik
-- [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) — Notifikasi
-- [image_picker](https://pub.dev/packages/image_picker) — Kamera & galeri
-- [intl](https://pub.dev/packages/intl) — Lokalisasi
+| Kategori | Teknologi |
+| :--- | :--- |
+| **Framework** | Flutter 3.44.1 |
+| **Bahasa** | Dart 3.x |
+| **Database** | Hive (Local NoSQL) |
+| **State Management** | StatefulWidget + ValueListenableBuilder |
+| **Notifikasi** | flutter_local_notifications |
+| **Kamera & Galeri** | image_picker |
+| **Grafik** | fl_chart |
+| **Lokalisasi** | intl + flutter_localizations |
+| **Share** | share_plus |
+| **Font** | Inter |
 
 ---
+
+## Developer
+
+**Feri** — Aspiring Software Engineer
+
+---
+
+## Lisensi
+
+© 2026 Feri. Hak cipta dilindungi.
