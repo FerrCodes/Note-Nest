@@ -383,7 +383,7 @@ abstract class AppLocalizations {
   /// No description provided for @version.
   ///
   /// In en, this message translates to:
-  /// **'v1.2.0'**
+  /// **'v1.1.0'**
   String get version;
 
   /// No description provided for @sendFeedback.
@@ -953,7 +953,7 @@ abstract class AppLocalizations {
   /// No description provided for @draftFoundDesc.
   ///
   /// In en, this message translates to:
-  /// **'You have an unsaved journal. Do you want to continue it?'**
+  /// **'Unfinished journal. Continue?'**
   String get draftFoundDesc;
 
   /// No description provided for @continueDraft.

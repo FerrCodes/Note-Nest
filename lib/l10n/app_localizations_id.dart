@@ -159,7 +159,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get aboutApp => 'Tentang Aplikasi';
 
   @override
-  String get version => 'v1.2.0';
+  String get version => 'v1.1.0';
 
   @override
   String get sendFeedback => 'Kirim Feedback';
@@ -456,8 +456,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get draftFoundTitle => 'Draft Belum Selesai';
 
   @override
-  String get draftFoundDesc =>
-      'Kamu punya jurnal yang belum selesai. Lanjutkan?';
+  String get draftFoundDesc => 'Jurnal yang belum selesai. Lanjutkan?';
 
   @override
   String get continueDraft => 'Lanjutkan';

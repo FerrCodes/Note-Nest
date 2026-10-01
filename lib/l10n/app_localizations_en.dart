@@ -158,7 +158,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aboutApp => 'About App';
 
   @override
-  String get version => 'v1.2.0';
+  String get version => 'v1.1.0';
 
   @override
   String get sendFeedback => 'Send Feedback';
@@ -455,8 +455,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get draftFoundTitle => 'Unsaved Draft Found';
 
   @override
-  String get draftFoundDesc =>
-      'You have an unsaved journal. Do you want to continue it?';
+  String get draftFoundDesc => 'Unfinished journal. Continue?';
 
   @override
   String get continueDraft => 'Continue';
