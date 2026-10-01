@@ -366,7 +366,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get aboutDeveloper => 'Pengembang';
 
   @override
-  String get aboutFollowMe => 'Follow aku di Instagram';
+  String get aboutFollowMe => 'Follow akunku di Instagram';
 
   @override
   String get aboutInstagramHandle => 'imnotferrriii';
@@ -403,7 +403,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get socialMedia => 'Media Sosial';
 
   @override
-  String get socialMediaDesc => 'Terhubung dengan pengembang';
+  String get socialMediaDesc => 'Terhubung dengan si Developer';
 
   @override
   String get appDescription =>
