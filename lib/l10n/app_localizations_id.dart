@@ -121,7 +121,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get contentHint => 'Mulai tulis pikiranmu...';
 
   @override
-  String get selectImage => 'Pilih gambar';
+  String get selectImage => 'Preset Gambar';
 
   @override
   String get howFeeling => 'Bagaimana perasaanmu?';
@@ -159,7 +159,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get aboutApp => 'Tentang Aplikasi';
 
   @override
-  String get version => 'v1.0.0';
+  String get version => 'v1.2.0';
 
   @override
   String get sendFeedback => 'Kirim Feedback';
@@ -378,7 +378,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get sourceCodeDesc => 'Lihat semua projek ini di repositori GitHub';
 
   @override
-  String get sendFeedbackOptions => 'Lewat mana kamu ingin kirim feedback?';
+  String get sendFeedbackOptions => ' Pilih opsi untuk mengirim feedback';
 
   @override
   String get viaEmail => 'Email';
@@ -408,6 +408,31 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get appDescription =>
       'Aplikasi jurnal minimalis untuk mencatat momen harian, refleksi diri, dan melacak mood. Bekerja sepenuhnya offline.';
+
+  @override
+  String get dangerZone => 'Zona Berbahaya';
+
+  @override
+  String get dangerZoneDesc => 'Aksi ini tidak bisa dibatalkan';
+
+  @override
+  String get resetSettings => 'Reset Pengaturan';
+
+  @override
+  String get resetSettingsDesc => 'Kembalikan bahasa dan notifikasi ke default';
+
+  @override
+  String get resetSettingsTitle => 'Reset Pengaturan?';
+
+  @override
+  String get resetSettingsConfirm =>
+      'Semua pengaturan akan dikembalikan ke default. Jurnalmu tidak akan dihapus.';
+
+  @override
+  String get reset => 'Reset';
+
+  @override
+  String get settingsReset => 'Pengaturan berhasil direset';
 
   @override
   String readingTime(int count) {

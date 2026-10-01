@@ -355,7 +355,7 @@ class _WriteScreenState extends State<WriteScreen> {
                                 color: cardColor,
                                 borderRadius: BorderRadius.circular(16),
                                 border: Border.all(
-                                  color: !_selectedImage.startsWith('http')
+                                  color: !_selectedImage.startsWith('assets/')
                                       ? textPrimary
                                       : Colors.transparent,
                                   width: 2,
@@ -441,18 +441,28 @@ class _WriteScreenState extends State<WriteScreen> {
                     ),
 
                     // Preview foto yang dipilih dari galeri/kamera
-                    if (!_selectedImage.startsWith('http')) ...[
+                    // Preview foto yang dipilih (galeri/kamera)
+                    if (!_selectedImage.startsWith('assets/')) ...[
                       const SizedBox(height: 16),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(16),
                         child: Stack(
                           children: [
-                            Image.file(
-                              File(_selectedImage),
-                              width: double.infinity,
-                              height: 200,
-                              fit: BoxFit.cover,
-                            ),
+                            // Tentukan tipe gambar
+                            if (_selectedImage.startsWith('http'))
+                              Image.network(
+                                _selectedImage,
+                                width: double.infinity,
+                                height: 200,
+                                fit: BoxFit.cover,
+                              )
+                            else
+                              Image.file(
+                                File(_selectedImage),
+                                width: double.infinity,
+                                height: 200,
+                                fit: BoxFit.cover,
+                              ),
                             Positioned(
                               top: 8,
                               right: 8,

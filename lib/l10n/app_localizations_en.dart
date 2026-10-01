@@ -120,7 +120,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get contentHint => 'Start writing your thoughts...';
 
   @override
-  String get selectImage => 'Select image';
+  String get selectImage => 'Preset images';
 
   @override
   String get howFeeling => 'How are you feeling?';
@@ -158,7 +158,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aboutApp => 'About App';
 
   @override
-  String get version => 'v1.0.0';
+  String get version => 'v1.2.0';
 
   @override
   String get sendFeedback => 'Send Feedback';
@@ -373,10 +373,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sourceCode => 'Source Code';
 
   @override
-  String get sourceCodeDesc => 'View the entire project on GitHub';
+  String get sourceCodeDesc =>
+      'Check out all these projects in the GitHub repository';
 
   @override
-  String get sendFeedbackOptions => 'How do you want to send feedback?';
+  String get sendFeedbackOptions => 'Select an option to send feedback.';
 
   @override
   String get viaEmail => 'Email';
@@ -406,6 +407,31 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get appDescription =>
       'A minimalist journal app to capture daily moments, self-reflection, and track your mood. Works fully offline.';
+
+  @override
+  String get dangerZone => 'Danger Zone';
+
+  @override
+  String get dangerZoneDesc => 'These actions cannot be undone';
+
+  @override
+  String get resetSettings => 'Reset Settings';
+
+  @override
+  String get resetSettingsDesc => 'Reset language and notification to default';
+
+  @override
+  String get resetSettingsTitle => 'Reset Settings?';
+
+  @override
+  String get resetSettingsConfirm =>
+      'All settings will be reset to default. Your journals will not be deleted.';
+
+  @override
+  String get reset => 'Reset';
+
+  @override
+  String get settingsReset => 'Settings reset successfully';
 
   @override
   String readingTime(int count) {

@@ -745,7 +745,7 @@ class _ReflectScreenState extends State<ReflectScreen> {
     double? height,
     BoxFit fit = BoxFit.cover,
   }) {
-    // URL internet
+    // 1. URL internet
     if (imagePath.startsWith('http')) {
       return Image.network(
         imagePath,
@@ -780,7 +780,7 @@ class _ReflectScreenState extends State<ReflectScreen> {
         },
       );
     }
-    // Asset lokal
+    // 2. Asset lokal (preset gambar)
     else if (imagePath.startsWith('assets/')) {
       return Image.asset(
         imagePath,
@@ -789,7 +789,7 @@ class _ReflectScreenState extends State<ReflectScreen> {
         fit: fit,
       );
     }
-    // File dari galeri/kamera
+    // 3. File lokal (foto dari galeri/kamera)
     else {
       return Image.file(
         File(imagePath),

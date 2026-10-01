@@ -417,6 +417,7 @@ class _DetailScreenState extends State<DetailScreen> {
     double? height,
     BoxFit fit = BoxFit.cover,
   }) {
+    // 1. URL internet
     if (imagePath.startsWith('http')) {
       return Image.network(
         imagePath,
@@ -436,8 +437,32 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
           );
         },
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            height: height,
+            color: cardColor,
+            child: Center(
+              child: Icon(
+                Icons.broken_image_outlined,
+                color: textSecondary,
+                size: 40,
+              ),
+            ),
+          );
+        },
       );
-    } else {
+    }
+    // 2. Asset lokal (preset gambar)
+    else if (imagePath.startsWith('assets/')) {
+      return Image.asset(
+        imagePath,
+        height: height,
+        width: double.infinity,
+        fit: fit,
+      );
+    }
+    // 3. File lokal (foto dari galeri/kamera)
+    else {
       return Image.file(
         File(imagePath),
         height: height,

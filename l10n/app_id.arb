@@ -47,7 +47,7 @@
   "aboutDesc": "Aplikasi jurnal minimalis untuk mencatat momen harian, refleksi diri, dan melacak mood.",
   "copyright": "Aplikasi ini sedang dalam pengembangan, jika menemukan bug segera beritahu.",
   "aboutApp": "Tentang Aplikasi",
-  "version": "v1.0.0",
+  "version": "v1.2.0",
   "sendFeedback": "Kirim Feedback",
   "feedbackDesc": "Saran atau laporan bug",
   "madeWith": "© 2026. All rights reserved.",
@@ -117,7 +117,7 @@
   "aboutInstagramHandle": "imnotferrriii",
   "sourceCode": "Kode Sumber",
   "sourceCodeDesc": "Lihat semua projek ini di repositori GitHub",
-  "sendFeedbackOptions": "Lewat mana kamu ingin kirim feedback?",
+  "sendFeedbackOptions": " Pilih opsi untuk mengirim feedback",
   "viaEmail": "Email",
   "viaWhatsApp": "WhatsApp",
   "noWhatsApp": "WhatsApp tidak terinstall",
@@ -127,6 +127,14 @@
   "socialMedia": "Media Sosial",
   "socialMediaDesc": "Terhubung dengan si Developer",
   "appDescription": "Aplikasi jurnal minimalis untuk mencatat momen harian, refleksi diri, dan melacak mood. Bekerja sepenuhnya offline.",
+  "dangerZone": "Zona Berbahaya",
+  "dangerZoneDesc": "Aksi ini tidak bisa dibatalkan",
+  "resetSettings": "Reset Pengaturan",
+  "resetSettingsDesc": "Kembalikan bahasa dan notifikasi ke default",
+  "resetSettingsTitle": "Reset Pengaturan?",
+  "resetSettingsConfirm": "Semua pengaturan akan dikembalikan ke default. Jurnalmu tidak akan dihapus.",
+  "reset": "Reset",
+  "settingsReset": "Pengaturan berhasil direset",
   "@journalsWithMood": {
     "placeholders": {
       "count": {

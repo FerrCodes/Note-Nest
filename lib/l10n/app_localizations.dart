@@ -311,7 +311,7 @@ abstract class AppLocalizations {
   /// No description provided for @selectImage.
   ///
   /// In en, this message translates to:
-  /// **'Select image'**
+  /// **'Preset images'**
   String get selectImage;
 
   /// No description provided for @howFeeling.
@@ -383,7 +383,7 @@ abstract class AppLocalizations {
   /// No description provided for @version.
   ///
   /// In en, this message translates to:
-  /// **'v1.0.0'**
+  /// **'v1.2.0'**
   String get version;
 
   /// No description provided for @sendFeedback.
@@ -797,13 +797,13 @@ abstract class AppLocalizations {
   /// No description provided for @sourceCodeDesc.
   ///
   /// In en, this message translates to:
-  /// **'View the entire project on GitHub'**
+  /// **'Check out all these projects in the GitHub repository'**
   String get sourceCodeDesc;
 
   /// No description provided for @sendFeedbackOptions.
   ///
   /// In en, this message translates to:
-  /// **'How do you want to send feedback?'**
+  /// **'Select an option to send feedback.'**
   String get sendFeedbackOptions;
 
   /// No description provided for @viaEmail.
@@ -859,6 +859,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A minimalist journal app to capture daily moments, self-reflection, and track your mood. Works fully offline.'**
   String get appDescription;
+
+  /// No description provided for @dangerZone.
+  ///
+  /// In en, this message translates to:
+  /// **'Danger Zone'**
+  String get dangerZone;
+
+  /// No description provided for @dangerZoneDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'These actions cannot be undone'**
+  String get dangerZoneDesc;
+
+  /// No description provided for @resetSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Settings'**
+  String get resetSettings;
+
+  /// No description provided for @resetSettingsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset language and notification to default'**
+  String get resetSettingsDesc;
+
+  /// No description provided for @resetSettingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Settings?'**
+  String get resetSettingsTitle;
+
+  /// No description provided for @resetSettingsConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'All settings will be reset to default. Your journals will not be deleted.'**
+  String get resetSettingsConfirm;
+
+  /// No description provided for @reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get reset;
+
+  /// No description provided for @settingsReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings reset successfully'**
+  String get settingsReset;
 
   /// No description provided for @readingTime.
   ///

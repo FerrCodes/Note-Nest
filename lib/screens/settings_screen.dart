@@ -35,6 +35,73 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _loadReminderSettings();
   }
 
+  // === FUNGSI RESET SETTINGS ===
+  void _confirmResetSettings() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: cardColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Row(
+          children: [
+            Icon(Icons.warning_amber_rounded, color: Colors.red, size: 24),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                AppLocalizations.of(context)!.resetSettingsTitle,
+                style: TextStyle(
+                  color: textPrimary,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ],
+        ),
+        content: Text(
+          AppLocalizations.of(context)!.resetSettingsConfirm,
+          style: TextStyle(color: textSecondary, height: 1.5),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              AppLocalizations.of(context)!.cancel,
+              style: TextStyle(color: textSecondary),
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              final settingsBox = Hive.box('settingsBox');
+
+              // Reset semua pengaturan
+              await settingsBox.put('languageCode', 'en');
+              await settingsBox.put('reminderEnabled', false);
+              await settingsBox.put('reminderHour', 20);
+              await settingsBox.put('reminderMinute', 0);
+              await settingsBox.put(
+                'reminderMessage',
+                'Waktunya menulis jurnal hari ini!',
+              );
+
+              // Batalkan notifikasi
+              await NotificationService().cancelDailyReminder();
+
+              if (!context.mounted) return;
+              Navigator.pop(context);
+              HapticFeedback.heavyImpact();
+              _showSnackBar(AppLocalizations.of(context)!.settingsReset);
+            },
+            child: Text(
+              AppLocalizations.of(context)!.reset,
+              style: const TextStyle(color: Colors.red),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<void> _loadReminderSettings() async {
     final settingsBox = Hive.box('settingsBox');
     final enabled = settingsBox.get('reminderEnabled', defaultValue: false);
@@ -92,20 +159,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 _buildSectionTitle(AppLocalizations.of(context)!.data),
                 const SizedBox(height: 12),
                 _buildSettingItem(
-                  icon: Icons.file_download_outlined,
+                  icon: Icons.ios_share,
                   title: AppLocalizations.of(context)!.exportJournals,
                   subtitle: AppLocalizations.of(context)!.exportJournalsDesc,
                   onTap: _exportJournals,
                 ),
-                const SizedBox(height: 8),
-                _buildSettingItem(
-                  icon: Icons.delete_outline,
-                  title: AppLocalizations.of(context)!.deleteAllJournals,
-                  subtitle: AppLocalizations.of(context)!.deleteAllJournalsDesc,
-                  onTap: _confirmDeleteAll,
-                  isDestructive: true,
-                ),
-
                 const SizedBox(height: 32),
 
                 // === SECTION 2: TENTANG ===
@@ -153,6 +211,58 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     }
                   },
                 ),
+                const SizedBox(height: 40),
+
+                // === DANGER ZONE ===
+                Row(
+                  children: [
+                    Icon(
+                      Icons.warning_amber_rounded,
+                      color: Colors.red,
+                      size: 16,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      AppLocalizations.of(context)!.dangerZone.toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.red,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                  child: Text(
+                    AppLocalizations.of(context)!.dangerZoneDesc,
+                    style: TextStyle(fontSize: 11, color: textSecondary),
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                // Reset Settings
+                _buildSettingItem(
+                  icon: Icons.restore_outlined,
+                  title: AppLocalizations.of(context)!.resetSettings,
+                  subtitle: AppLocalizations.of(context)!.resetSettingsDesc,
+                  onTap: _confirmResetSettings,
+                  isDestructive: true,
+                ),
+                const SizedBox(height: 8),
+
+                // Delete All Journals
+                _buildSettingItem(
+                  icon: Icons.delete_outline,
+                  title: AppLocalizations.of(context)!.deleteAllJournals,
+                  subtitle: AppLocalizations.of(context)!.deleteAllJournalsDesc,
+                  onTap: _confirmDeleteAll,
+                  isDestructive: true,
+                ),
+
+                // === FOOTER ===
                 const SizedBox(height: 8),
                 const SizedBox(height: 40),
 
@@ -571,7 +681,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(
-                          Icons.person_outline,
+                          Icons.manage_accounts_outlined,
                           color: Color(0xFF0A84FF),
                           size: 20,
                         ),
@@ -624,21 +734,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             Container(
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                  colors: [
-                                    Color(0xFF833AB4),
-                                    Color(0xFFFD1D1D),
-                                    Color(0xFFFCB045),
-                                  ],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                ),
+                                color: textPrimary.withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: const Icon(
-                                Icons.share_outlined,
-                                color: Colors.white,
-                                size: 18,
+                              child: Icon(
+                                Icons.public_outlined,
+                                color: textPrimary,
+                                size: 20,
                               ),
                             ),
                             const SizedBox(width: 12),
