@@ -292,17 +292,7 @@ class _WriteScreenState extends State<WriteScreen> {
                                 child: Stack(
                                   fit: StackFit.expand,
                                   children: [
-                                    Image.network(
-                                      img['url']!,
-                                      fit: BoxFit.cover,
-                                      loadingBuilder:
-                                          (context, child, loadingProgress) {
-                                            if (loadingProgress == null) {
-                                              return child;
-                                            }
-                                            return Container(color: cardColor);
-                                          },
-                                    ),
+                                    Image.asset(img['url']!, fit: BoxFit.cover),
                                     if (isSelected)
                                       Container(
                                         color: Colors.black.withValues(

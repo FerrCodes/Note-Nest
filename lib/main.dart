@@ -745,6 +745,7 @@ class _ReflectScreenState extends State<ReflectScreen> {
     double? height,
     BoxFit fit = BoxFit.cover,
   }) {
+    // URL internet
     if (imagePath.startsWith('http')) {
       return Image.network(
         imagePath,
@@ -764,8 +765,32 @@ class _ReflectScreenState extends State<ReflectScreen> {
             ),
           );
         },
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            height: height,
+            color: cardColor,
+            child: Center(
+              child: Icon(
+                Icons.broken_image_outlined,
+                color: textSecondary,
+                size: 40,
+              ),
+            ),
+          );
+        },
       );
-    } else {
+    }
+    // Asset lokal
+    else if (imagePath.startsWith('assets/')) {
+      return Image.asset(
+        imagePath,
+        height: height,
+        width: double.infinity,
+        fit: fit,
+      );
+    }
+    // File dari galeri/kamera
+    else {
       return Image.file(
         File(imagePath),
         height: height,
