@@ -1,17 +1,37 @@
-# minimalis_journal
+# NoteNest
 
-A new Flutter project.
+Aplikasi jurnal minimalis yang dibangun dengan Flutter. Tulis, refleksi, dan lacak mood-mu — semuanya offline.
 
-## Getting Started
+## Fitur
 
-This project is a starting point for a Flutter application.
+- Tulis, edit, dan hapus jurnal
+- Unggah foto dari galeri atau kamera
+- Lacak mood dengan 4 pilihan: Tenang, Bersyukur, Damai, Fokus
+- Statistik dengan streak, kalender, dan grafik
+- Dukungan multi-bahasa (Inggris & Indonesia)
+- Notifikasi pengingat harian
+- Mode gelap
+- Ekspor jurnal
+- 100% offline dengan Hive
 
-A few resources to get you started if this is your first Flutter project:
+## Tangkapan Layar
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+<p align="center">
+  <img src="screenshots/home.png" width="180"/>
+  <img src="screenshots/write.png" width="180"/>
+  <img src="screenshots/detail.png" width="180"/>
+  <img src="screenshots/stats.png" width="180"/>
+</p>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Dibangun Dengan
+
+- [Flutter](https://flutter.dev) — Framework UI
+- [Hive](https://pub.dev/packages/hive) — Database lokal
+- [fl_chart](https://pub.dev/packages/fl_chart) — Grafik
+- [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) — Notifikasi
+- [image_picker](https://pub.dev/packages/image_picker) — Kamera & galeri
+- [intl](https://pub.dev/packages/intl) — Lokalisasi
+
+## Lisensi
+
+© 2026 Feri. Hak cipta dilindungi.
