@@ -142,7 +142,7 @@
   "missingImage": "Please select a photo",
   "ok": "OK",
   "draftFoundTitle": "Unsaved Draft Found",
-  "draftFoundDesc": "You have an unsaved journal. Do you want to continue it?",
+  "draftFoundDesc": "Unfinished journal. Continue?",
   "continueDraft": "Continue",
   "discardDraft": "Discard",
   "draftSaved": "Draft saved automatically",
