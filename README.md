@@ -5,7 +5,7 @@ Adalah aplikasi jurnal pribadi dengan fitur lengkap: tulis jurnal, unggah foto d
 ---
 
 > [!WARNING]
-> **NoteNest** ini sedang dalam tahap pengembangan aktif. Versi saat ini secara fitur semua sudah berfungsi dengan baik. Fitur baru akan ditambahkan secara bertahap.
+> **NoteNest** ini sedang dalam tahap pengembangan aktif untuk memperbaiki fitur atau sistem lainnya. Versi saat ini secara fitur semua sudah berfungsi dengan baik. Fitur baru akan ditambahkan secara bertahap.
 
 ---
 
@@ -117,4 +117,4 @@ Adalah aplikasi jurnal pribadi dengan fitur lengkap: tulis jurnal, unggah foto d
 
 ## Lisensi
 
-© 2026 Feri. Hak cipta dilindungi.
+© 2026. Hak cipta dilindungi.
