@@ -135,6 +135,17 @@
   "resetSettingsConfirm": "All settings will be reset to default. Your journals will not be deleted.",
   "reset": "Reset",
   "settingsReset": "Settings reset successfully",
+  "incompleteTitle": "Incomplete Journal",
+  "incompleteDesc": "Please complete the following before saving:",
+  "missingTitle": "Journal title is empty",
+  "missingContent": "Journal content is empty",
+  "missingImage": "Please select a photo",
+  "ok": "OK",
+  "draftFoundTitle": "Unsaved Draft Found",
+  "draftFoundDesc": "You have an unsaved journal. Do you want to continue it?",
+  "continueDraft": "Continue",
+  "discardDraft": "Discard",
+  "draftSaved": "Draft saved automatically",
   "@journalsWithMood": {
     "placeholders": {
       "count": {

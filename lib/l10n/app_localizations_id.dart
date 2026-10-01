@@ -435,6 +435,40 @@ class AppLocalizationsId extends AppLocalizations {
   String get settingsReset => 'Pengaturan berhasil direset';
 
   @override
+  String get incompleteTitle => 'Jurnal Belum Lengkap';
+
+  @override
+  String get incompleteDesc => 'Lengkapi hal berikut sebelum menyimpan:';
+
+  @override
+  String get missingTitle => 'Judul jurnal masih kosong';
+
+  @override
+  String get missingContent => 'Isi jurnal masih kosong';
+
+  @override
+  String get missingImage => 'Pilih foto terlebih dahulu';
+
+  @override
+  String get ok => 'Mengerti';
+
+  @override
+  String get draftFoundTitle => 'Draft Belum Selesai';
+
+  @override
+  String get draftFoundDesc =>
+      'Kamu punya jurnal yang belum selesai. Lanjutkan?';
+
+  @override
+  String get continueDraft => 'Lanjutkan';
+
+  @override
+  String get discardDraft => 'Buang';
+
+  @override
+  String get draftSaved => 'Draft tersimpan otomatis';
+
+  @override
   String readingTime(int count) {
     return '$count menit baca';
   }

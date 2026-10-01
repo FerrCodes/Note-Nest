@@ -7,6 +7,7 @@ import '../utils/preset_images.dart';
 import '../l10n/app_localizations.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import '../widgets/top_banner.dart';
 
 class WriteScreen extends StatefulWidget {
   final JournalEntry? entry;
@@ -17,7 +18,7 @@ class WriteScreen extends StatefulWidget {
   State<WriteScreen> createState() => _WriteScreenState();
 }
 
-class _WriteScreenState extends State<WriteScreen> {
+class _WriteScreenState extends State<WriteScreen> with WidgetsBindingObserver {
   late TextEditingController _titleController;
   late TextEditingController _contentController;
   String _selectedMood = 'Calm';
@@ -39,6 +40,94 @@ class _WriteScreenState extends State<WriteScreen> {
     }
   }
 
+  void _showIncompleteDialog(List<String> missingFields) {
+    HapticFeedback.heavyImpact();
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: cardColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Row(
+          children: [
+            const Icon(
+              Icons.warning_amber_rounded,
+              color: Color(0xFFFFD60A),
+              size: 24,
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                AppLocalizations.of(context)!.incompleteTitle,
+                style: TextStyle(
+                  color: textPrimary,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              AppLocalizations.of(context)!.incompleteDesc,
+              style: TextStyle(color: textSecondary, fontSize: 13, height: 1.5),
+            ),
+            const SizedBox(height: 16),
+            ...missingFields.map(
+              (field) => Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 7),
+                      width: 6,
+                      height: 6,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFFF3B30),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        field,
+                        style: TextStyle(
+                          color: textPrimary,
+                          fontSize: 14,
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              HapticFeedback.selectionClick();
+              Navigator.pop(context);
+            },
+            child: Text(
+              AppLocalizations.of(context)!.ok,
+              style: const TextStyle(
+                color: Color(0xFF0A84FF),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   final Color bgColor = const Color(0xFF121212);
   final Color cardColor = const Color(0xFF1E1E1E);
   final Color textPrimary = const Color(0xFFF2F2F7);
@@ -54,19 +143,225 @@ class _WriteScreenState extends State<WriteScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _titleController = TextEditingController(text: widget.entry?.title ?? '');
     _contentController = TextEditingController(
       text: widget.entry?.content ?? '',
     );
     _selectedMood = widget.entry?.mood ?? 'Calm';
     _selectedImage = widget.entry?.imageUrl ?? PresetImages.getDefault();
+
+    // Cek draft HANYA kalau mode new (bukan edit)
+    if (widget.entry == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _checkForDraft();
+      });
+    }
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _titleController.dispose();
     _contentController.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.inactive) {
+      if (widget.entry == null && _hasUnsavedContent()) {
+        _saveDraft();
+      }
+    }
+  }
+
+  bool _hasUnsavedContent() {
+    return _titleController.text.trim().isNotEmpty ||
+        _contentController.text.trim().isNotEmpty;
+  }
+
+  Future<void> _saveDraft() async {
+    final settingsBox = Hive.box('settingsBox');
+    await settingsBox.put('draft_title', _titleController.text);
+    await settingsBox.put('draft_content', _contentController.text);
+    await settingsBox.put('draft_mood', _selectedMood);
+    await settingsBox.put('draft_image', _selectedImage);
+    await settingsBox.put('draft_has_data', true);
+  }
+
+  Future<void> _clearDraft() async {
+    final settingsBox = Hive.box('settingsBox');
+    await settingsBox.delete('draft_title');
+    await settingsBox.delete('draft_content');
+    await settingsBox.delete('draft_mood');
+    await settingsBox.delete('draft_image');
+    await settingsBox.put('draft_has_data', false);
+  }
+
+  Future<void> _checkForDraft() async {
+    final settingsBox = Hive.box('settingsBox');
+    final hasDraft = settingsBox.get('draft_has_data', defaultValue: false);
+
+    if (!hasDraft) return;
+    if (!mounted) return;
+
+    final title = settingsBox.get('draft_title', defaultValue: '');
+    final content = settingsBox.get('draft_content', defaultValue: '');
+
+    if (title.trim().isEmpty && content.trim().isEmpty) {
+      await _clearDraft();
+      return;
+    }
+
+    _showDraftDialog();
+  }
+
+  void _showDraftDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        backgroundColor: cardColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Row(
+          children: [
+            const Icon(Icons.edit_note, color: Color(0xFF0A84FF), size: 24),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                AppLocalizations.of(context)!.draftFoundTitle,
+                style: TextStyle(
+                  color: textPrimary,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ],
+        ),
+        content: Text(
+          AppLocalizations.of(context)!.draftFoundDesc,
+          style: TextStyle(color: textSecondary, height: 1.5),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () async {
+              HapticFeedback.selectionClick();
+              await _clearDraft();
+              if (!context.mounted) return;
+              Navigator.pop(context);
+            },
+            child: Text(
+              AppLocalizations.of(context)!.discardDraft,
+              style: TextStyle(color: textSecondary),
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              HapticFeedback.selectionClick();
+              final settingsBox = Hive.box('settingsBox');
+              setState(() {
+                _titleController.text = settingsBox.get(
+                  'draft_title',
+                  defaultValue: '',
+                );
+                _contentController.text = settingsBox.get(
+                  'draft_content',
+                  defaultValue: '',
+                );
+                _selectedMood = settingsBox.get(
+                  'draft_mood',
+                  defaultValue: 'Calm',
+                );
+                _selectedImage = settingsBox.get(
+                  'draft_image',
+                  defaultValue: PresetImages.getDefault(),
+                );
+              });
+              if (!context.mounted) return;
+              Navigator.pop(context);
+            },
+            child: Text(
+              AppLocalizations.of(context)!.continueDraft,
+              style: const TextStyle(
+                color: Color(0xFF0A84FF),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showCloseConfirmDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: cardColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Text(
+          AppLocalizations.of(context)!.draftFoundTitle,
+          style: TextStyle(
+            color: textPrimary,
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
+          ),
+        ),
+        content: Text(
+          AppLocalizations.of(context)!.draftFoundDesc,
+          style: TextStyle(color: textSecondary, height: 1.5),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              HapticFeedback.selectionClick();
+              Navigator.pop(context);
+            },
+            child: Text(
+              AppLocalizations.of(context)!.cancel,
+              style: TextStyle(color: textSecondary),
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              HapticFeedback.selectionClick();
+              await _clearDraft();
+              if (!context.mounted) return;
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+            child: Text(
+              AppLocalizations.of(context)!.discardDraft,
+              style: const TextStyle(color: Colors.red),
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              HapticFeedback.selectionClick();
+              await _saveDraft();
+              if (!context.mounted) return;
+              Navigator.pop(context);
+              Navigator.pop(context);
+              TopBanner.show(
+                context,
+                message: AppLocalizations.of(context)!.draftSaved,
+                type: BannerType.info,
+              );
+            },
+            child: Text(
+              AppLocalizations.of(context)!.save,
+              style: const TextStyle(
+                color: Color(0xFF0A84FF),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> _pickImageFromGallery() async {
@@ -86,16 +381,10 @@ class _WriteScreenState extends State<WriteScreen> {
     } catch (e) {
       HapticFeedback.heavyImpact();
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Gagal memilih gambar'),
-          backgroundColor: const Color(0xFF1E1E1E),
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.only(top: 90, left: 20, right: 20),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-        ),
+      TopBanner.show(
+        context,
+        message: 'Gagal memilih gambar',
+        type: BannerType.error,
       );
     }
   }
@@ -441,7 +730,6 @@ class _WriteScreenState extends State<WriteScreen> {
                     ),
 
                     // Preview foto yang dipilih dari galeri/kamera
-                    // Preview foto yang dipilih (galeri/kamera)
                     if (!_selectedImage.startsWith('assets/')) ...[
                       const SizedBox(height: 16),
                       ClipRRect(
@@ -601,7 +889,14 @@ class _WriteScreenState extends State<WriteScreen> {
               left: 16,
               child: _buildCircleButton(
                 icon: Icons.close,
-                onTap: () => Navigator.pop(context),
+                onTap: () {
+                  HapticFeedback.selectionClick();
+                  if (_hasUnsavedContent()) {
+                    _showCloseConfirmDialog();
+                  } else {
+                    Navigator.pop(context);
+                  }
+                },
               ),
             ),
 
@@ -617,21 +912,36 @@ class _WriteScreenState extends State<WriteScreen> {
                 onTap: () async {
                   HapticFeedback.mediumImpact();
 
-                  if (_titleController.text.isEmpty &&
-                      _contentController.text.isEmpty) {
-                    Navigator.pop(context);
+                  // === VALIDASI ===
+                  final missingFields = <String>[];
+
+                  if (_titleController.text.trim().isEmpty) {
+                    missingFields.add(
+                      AppLocalizations.of(context)!.missingTitle,
+                    );
+                  }
+                  if (_contentController.text.trim().isEmpty) {
+                    missingFields.add(
+                      AppLocalizations.of(context)!.missingContent,
+                    );
+                  }
+                  // Kalau bukan edit dan belum pilih foto dari galeri
+                  // (foto preset selalu ada, jadi kita cek apakah user pakai default)
+                  // Kita tidak cek foto karena preset selalu ada
+
+                  if (missingFields.isNotEmpty) {
+                    _showIncompleteDialog(missingFields);
                     return;
                   }
 
+                  // === SIMPAN ===
                   final box = Hive.box<JournalEntry>('journalBox');
                   final today = DateFormat(
                     'MMM d, yyyy HH:mm',
                   ).format(DateTime.now());
 
                   if (isEditing) {
-                    widget.entry!.title = _titleController.text.isEmpty
-                        ? 'Untitled'
-                        : _titleController.text;
+                    widget.entry!.title = _titleController.text;
                     widget.entry!.content = _contentController.text;
                     widget.entry!.mood = _selectedMood;
                     widget.entry!.imageUrl = _selectedImage;
@@ -639,9 +949,7 @@ class _WriteScreenState extends State<WriteScreen> {
                     await widget.entry!.save();
                   } else {
                     final newEntry = JournalEntry(
-                      title: _titleController.text.isEmpty
-                          ? 'Untitled'
-                          : _titleController.text,
+                      title: _titleController.text,
                       content: _contentController.text,
                       date: today,
                       mood: _selectedMood,
@@ -651,6 +959,7 @@ class _WriteScreenState extends State<WriteScreen> {
                     await box.add(newEntry);
                   }
 
+                  await _clearDraft();
                   if (!context.mounted) return;
                   HapticFeedback.lightImpact();
                   Navigator.pop(context);

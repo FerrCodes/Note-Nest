@@ -12,6 +12,7 @@ import 'l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
 import 'services/notification_service.dart';
+import 'widgets/top_banner.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -558,29 +559,10 @@ class _ReflectScreenState extends State<ReflectScreen> {
                 onDismissed: (direction) {
                   HapticFeedback.heavyImpact();
                   entry.delete();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        AppLocalizations.of(context)!.journalDeleted,
-                        style: const TextStyle(
-                          color: Color(0xFF121212),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      backgroundColor: const Color(0xFFF2F2F7), // Putih
-                      duration: const Duration(seconds: 2),
-                      behavior: SnackBarBehavior.floating,
-                      margin: const EdgeInsets.only(
-                        bottom: 100,
-                        left: 20,
-                        right: 20,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      elevation: 0,
-                    ),
+                  TopBanner.show(
+                    context,
+                    message: AppLocalizations.of(context)!.journalDeleted,
+                    type: BannerType.success,
                   );
                 },
                 child: _buildJournalCard(context, entry),

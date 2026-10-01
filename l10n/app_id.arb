@@ -135,6 +135,17 @@
   "resetSettingsConfirm": "Semua pengaturan akan dikembalikan ke default. Jurnalmu tidak akan dihapus.",
   "reset": "Reset",
   "settingsReset": "Pengaturan berhasil direset",
+  "incompleteTitle": "Jurnal Belum Lengkap",
+  "incompleteDesc": "Lengkapi hal berikut sebelum menyimpan:",
+  "missingTitle": "Judul jurnal masih kosong",
+  "missingContent": "Isi jurnal masih kosong",
+  "missingImage": "Pilih foto terlebih dahulu",
+  "ok": "Mengerti",
+  "draftFoundTitle": "Draft Belum Selesai",
+  "draftFoundDesc": "Kamu punya jurnal yang belum selesai. Lanjutkan?",
+  "continueDraft": "Lanjutkan",
+  "discardDraft": "Buang",
+  "draftSaved": "Draft tersimpan otomatis",
   "@journalsWithMood": {
     "placeholders": {
       "count": {

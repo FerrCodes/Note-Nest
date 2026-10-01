@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../services/notification_service.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../widgets/top_banner.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -1425,24 +1426,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   // === SNACKBAR HELPER ===
-  void _showSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          message,
-          style: const TextStyle(
-            color: Color(0xFF121212),
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        backgroundColor: const Color(0xFFF2F2F7), // Putih
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.only(bottom: 100, left: 20, right: 20),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        duration: const Duration(seconds: 2),
-        elevation: 0,
-      ),
-    );
+  void _showSnackBar(String message, {BannerType type = BannerType.success}) {
+    TopBanner.show(context, message: message, type: type);
   }
 }

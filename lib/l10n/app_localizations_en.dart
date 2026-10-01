@@ -434,6 +434,40 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsReset => 'Settings reset successfully';
 
   @override
+  String get incompleteTitle => 'Incomplete Journal';
+
+  @override
+  String get incompleteDesc => 'Please complete the following before saving:';
+
+  @override
+  String get missingTitle => 'Journal title is empty';
+
+  @override
+  String get missingContent => 'Journal content is empty';
+
+  @override
+  String get missingImage => 'Please select a photo';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get draftFoundTitle => 'Unsaved Draft Found';
+
+  @override
+  String get draftFoundDesc =>
+      'You have an unsaved journal. Do you want to continue it?';
+
+  @override
+  String get continueDraft => 'Continue';
+
+  @override
+  String get discardDraft => 'Discard';
+
+  @override
+  String get draftSaved => 'Draft saved automatically';
+
+  @override
   String readingTime(int count) {
     return '$count min read';
   }

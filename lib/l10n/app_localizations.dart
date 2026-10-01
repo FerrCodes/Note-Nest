@@ -908,6 +908,72 @@ abstract class AppLocalizations {
   /// **'Settings reset successfully'**
   String get settingsReset;
 
+  /// No description provided for @incompleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Incomplete Journal'**
+  String get incompleteTitle;
+
+  /// No description provided for @incompleteDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Please complete the following before saving:'**
+  String get incompleteDesc;
+
+  /// No description provided for @missingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal title is empty'**
+  String get missingTitle;
+
+  /// No description provided for @missingContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal content is empty'**
+  String get missingContent;
+
+  /// No description provided for @missingImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a photo'**
+  String get missingImage;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// No description provided for @draftFoundTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsaved Draft Found'**
+  String get draftFoundTitle;
+
+  /// No description provided for @draftFoundDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'You have an unsaved journal. Do you want to continue it?'**
+  String get draftFoundDesc;
+
+  /// No description provided for @continueDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueDraft;
+
+  /// No description provided for @discardDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get discardDraft;
+
+  /// No description provided for @draftSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Draft saved automatically'**
+  String get draftSaved;
+
   /// No description provided for @readingTime.
   ///
   /// In en, this message translates to:
